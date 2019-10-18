@@ -1,0 +1,23 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+      <ion-title>Ágape</ion-title>
+    </ion-toolbar>
+  </ion-header>
+    
+  <ion-content padding>
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title text-center>Ágape</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list lines="none">
+            <ion-item *ngFor="let agapes of agape">
+              <ion-label>{{agapes}}</ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    </ion-content>

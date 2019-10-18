@@ -1,0 +1,19 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+      <ion-title>Histórico de presença</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content padding>
+    <div class="box">
+      <h2 text-center>Histórico</h2>
+      <br>
+      <ion-list lines="none" *ngFor="let datas of data" text-center>
+        <ion-button color="primary" fill="clear" (click)="lista(datas)">Reunião do dia {{datas}}</ion-button>
+      </ion-list>
+    </div>
+  </ion-content>
+  

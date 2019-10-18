@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button></ion-back-button>
+      </ion-buttons>
+    <ion-title>Histórico de ágape</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="box">
+    <h2 text-center>Histórico</h2>
+    <br>
+    <ion-row>
+      <ion-col size="12">
+        <ion-item *ngIf="agape.length<1" lines="none">
+          <h2 text-center>Nenhum ágape cadastrada</h2>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="agape.length>0">
+        <ion-col size="5">
+            <h3 text-center>Ágape</h3>
+            <ion-list lines="none">
+                <ion-item-sliding *ngFor="let agapes of agape">
+                  <ion-item>
+                      <ion-label text-center>{{agapes}}</ion-label>
+                  </ion-item>
+                </ion-item-sliding>
+              </ion-list>
+          </ion-col>
+          <ion-col size="4">
+            <h3 text-center>Data</h3>
+            <ion-list lines="none">
+                <ion-item-sliding *ngFor="let datas of date">
+                  <ion-item>
+                      <ion-label text-center>{{datas}}</ion-label>
+                  </ion-item>
+                </ion-item-sliding>
+              </ion-list>
+          </ion-col>
+          <ion-col size="3">
+            <h3 text-center>Ativo</h3>
+            <ion-list lines="none">
+                <ion-item-sliding *ngFor="let ativos of ativo">
+                  <ion-item>
+                      <ion-label text-center>{{ativos}}</ion-label>
+                  </ion-item>
+                </ion-item-sliding>
+              </ion-list>
+          </ion-col>
+    </ion-row>
+  </div>
+</ion-content>

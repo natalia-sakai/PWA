@@ -1,0 +1,28 @@
+<ion-content padding>
+    <ion-button fill='clear' (click)="dismiss()" style="color: white">
+      <ion-icon name="arrow-round-back" slot="start"></ion-icon>
+      Back
+    </ion-button>
+    <ion-grid text-center>
+        <img  src="\assets\user.png" >
+    </ion-grid> 
+    <br>
+    <ion-grid text-center >
+      <div class="box">
+          <h2>Editar senha</h2>
+    <form #form="ngForm" (ngSubmit)="editar(form)" method="POST">
+      <ion-grid>
+        <ion-input ngModel placeholder="Senha atual" name="password1" type="password" pattern="[a-z0-9._%+-]{6,}$" required="true"></ion-input>
+      </ion-grid> 
+      <br>
+      <ion-grid>
+        <ion-input ngModel placeholder="Senha nova" name="password2" type="password" pattern="[a-z0-9._%+-]{6,}$" required="true"></ion-input>
+      </ion-grid> 
+      <br>
+      <ion-button type="submit" round expand="block" color="primary">Salvar edição</ion-button>
+  
+    </form>
+  </div>
+</ion-grid>
+  </ion-content>
+  

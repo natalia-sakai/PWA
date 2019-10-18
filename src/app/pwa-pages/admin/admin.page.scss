@@ -1,0 +1,68 @@
+app-admin{
+    /* Extra small devices (phones, 600px and down) */
+    @media(max-width: 600px) {
+
+    }
+
+    /* Small devices (portrait tablets and large phones, 600px and up) */
+    @media(min-width: 600px) {
+
+    }
+
+    /* Medium devices (landscape tablets, 768px and up) */
+    @media(min-width: 768px) {
+    }
+
+    /* Large devices (laptops/desktops, 992px and up) */
+    @media(min-width: 992px) {
+    }
+
+    /* Extra large devices (large laptops and desktops, 1200px and up) */
+    @media(min-width: 1200px) {
+
+    }
+ }
+ ion-grid{
+     /* Extra small devices (phones, 600px and down) */
+    @media(max-width: 600px) {
+        background-color: beige;
+    }
+
+    /* Small devices (portrait tablets and large phones, 600px and up) */
+    @media(min-width: 600px) {
+        background-color: powderblue;
+    }
+
+    /* Medium devices (landscape tablets, 768px and up) */
+    @media(min-width: 768px) {
+        background-color: plum;
+    }
+
+    /* Large devices (laptops/desktops, 992px and up) */
+    @media(min-width: 992px) {
+        background-color: red;
+    }
+
+    /* Extra large devices (large laptops and desktops, 1200px and up) */
+    @media(min-width: 1200px) {
+        background-color: pink;
+        
+    }
+ }
+
+ .box{
+    background-color: white;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 7px !important;
+ }
+ h1{
+     text-align: center;
+ }
+ 
+ ion-buttons{
+     margin-left: 10px;
+ }
+

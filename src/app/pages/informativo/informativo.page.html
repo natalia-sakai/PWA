@@ -1,0 +1,23 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+      <ion-title>Informativos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+    
+  <ion-content padding>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title text-center>Informativo</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list lines="none">
+          <ion-item *ngFor="let inform of info">
+            <ion-label>{{inform}}</ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </ion-content>
