@@ -1,0 +1,39 @@
+<ion-content padding>
+  <ion-button fill='clear' (click)="dismiss()" style="color: white">
+    <ion-icon name="arrow-round-back" slot="start"></ion-icon>
+    Back
+  </ion-button>
+  <br>
+  <ion-grid text-center >
+    <div class="box">
+      <h2>Cadastrar Ordem</h2>
+      <form #form="ngForm" (ngSubmit)="cadastrar(form)" method="POST">
+        <ion-grid>
+          <ion-input ngModel placeholder="Ordem" name="ordem" type="text" required="true"></ion-input>
+        </ion-grid>
+        <ion-grid>
+          <ion-list lines="none">
+            <ion-radio-group ngModel name="nivel">
+              <ion-list-header>
+                <ion-label>Nível</ion-label>
+              </ion-list-header>
+              <ion-item>
+                <ion-label>Aprendiz</ion-label>
+                <ion-radio value="1" slot="start" checked></ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-label>Companheiro</ion-label>
+                <ion-radio value="2"slot="start"></ion-radio>
+              </ion-item>
+              <ion-item>
+                <ion-label>Mestre</ion-label>
+                <ion-radio value="3"slot="start"></ion-radio>
+              </ion-item>
+            </ion-radio-group>
+          </ion-list>
+          <ion-button type="submit" round expand="block" color="danger">Cadastrar</ion-button>
+        </ion-grid>
+      </form>
+    </div>
+  </ion-grid>
+</ion-content>

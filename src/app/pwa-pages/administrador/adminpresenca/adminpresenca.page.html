@@ -18,7 +18,7 @@
 
     <ion-card>
       <ion-card-header>
-        <ion-card-title text-center >Lista de presença da reunião do dia {{this.data| date: "dd/MM" }}</ion-card-title>
+        <ion-card-title text-center >Lista de presença da reunião do dia {{this.data}}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <ion-list lines="none">
@@ -38,7 +38,7 @@
                 <h2 text-center>Presença</h2>
               <ion-item-sliding *ngFor="let presencas of presenca">
                 <ion-item>
-                    <ion-label text-center [color]="cor">{{presencas}}</ion-label>
+                    <ion-label text-center>{{presencas}}</ion-label>
                 </ion-item>
               </ion-item-sliding>
             </ion-col>

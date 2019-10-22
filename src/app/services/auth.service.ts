@@ -69,6 +69,7 @@ export class AuthService {
             console.log('Token armazenado');
             this.auxtoken = val.accessToken;
             this.storage.set('access', this.auxtoken);
+            this.global.access = val.accessToken;
           },
           error => console.error('Erro ao armazenar o Token', error)
         );
@@ -79,14 +80,17 @@ export class AuthService {
     );
   }
 
-  register(fName: String, lName: String, email: String, password: String,data_nasc: Date, cargo_id: Number, avental_id:Number, telefone: Number, endereco: String, cidade: String, estado: String) {
+  register(fName: String, lName: String, email: String, password: String,data_nasc: Date, 
+    cargo_id: Number, avental_id:Number, telefone: Number, 
+    endereco: String, cidade: String, estado: String, nivel: Number) {
     return this.http.post(this.env.API_URL + 'auth/register',
     {
       fName: fName, lName: lName, 
       email: email, password: password, 
       endereco: endereco, cidade: cidade, 
       estado: estado, data_nasc: data_nasc, 
-      cargo_id: cargo_id, avental_id:avental_id, telefone:telefone
+      cargo_id: cargo_id, avental_id:avental_id, telefone:telefone,
+      nivel: nivel
     }).pipe(
       retry(1),
       catchError(this.handleError)
@@ -94,15 +98,15 @@ export class AuthService {
   }
 
   
-  informativo(info:String, id_user:Number, permissao: Number){
+  informativo(info:String, id_user:Number, nivel: Number){
     return this.http.post(this.env.API_URL + 'auth/informativo', {
-      info:info, id_user:id_user, permissao:permissao
+      info:info, id_user:id_user, nivel:nivel
     });
   }
 
-  ordem(ordem:String, id_user:Number){
+  ordem(ordem:String, id_user:Number, nivel: Number){
     return this.http.post(this.env.API_URL + 'auth/ordem', {
-      ordem:ordem, id_user:id_user
+      ordem:ordem, id_user:id_user, nivel:nivel
     });
   }
 
@@ -112,10 +116,10 @@ export class AuthService {
     });
   }
 
-  confirma_presenca(id_user: Number, resp: Number, motivo: String)
+  confirma_presenca(id_user: Number, resp: Number, motivo: String, reuniao: Number)
   {
     return this.http.post(this.env.API_URL + 'auth/listapresenca',
-      {id_user: id_user, presenca: resp, motivo: motivo}
+      {id_user: id_user, presenca: resp, motivo: motivo, reuniao:reuniao}
     );
   }
 
@@ -132,9 +136,9 @@ export class AuthService {
   //#endregion
   
   //#region PUTS
-  updateuser(id: Number,fName: String, lName: String, email: String, endereco: String, cidade: String, estado: String, data_nasc: String, telefone: Number) {
+  updateuser(id: Number,fName: String, lName: String, email: String, endereco: String, cidade: String, estado: String, data_nasc: String, telefone: Number, nivel:Number, cargo:Number) {
     return this.http.put(this.env.API_URL + 'auth/updateuser',
-      {id_user: id, fName: fName, lName: lName, email: email, endereco: endereco, cidade: cidade, estado: estado,data_nasc: data_nasc, telefone: telefone}
+      {id_user: id, fName: fName, lName: lName, email: email, endereco: endereco, cidade: cidade, estado: estado,data_nasc: data_nasc, telefone: telefone, nivel:nivel, cargo:cargo}
     );
   }
 
@@ -144,18 +148,18 @@ export class AuthService {
     );
   }
 
-  updateinfo(id: Number, info:String, ativo: Number): Observable<any>{
+  updateinfo(id: Number, info:String, ativo: Number, nivel: Number): Observable<any>{
     return this.http.put<any>(this.env.API_URL + 'auth/updateinfo',
-    {id: id, info: info, ativo: ativo}
+    {id: id, info: info, ativo: ativo, nivel:nivel}
     ).pipe(
       retry(1),
       catchError(this.handleError)
     ); 
   }
 
-  updateordem(id: Number, ordem:String, ativo: Number): Observable<any>{
+  updateordem(id: Number, ordem:String, ativo: Number, nivel: Number): Observable<any>{
     return this.http.put<any>(this.env.API_URL + 'auth/updateordem',
-    {id: id, ordem: ordem, ativo: ativo}
+    {id: id, ordem: ordem, ativo: ativo, nivel: nivel}
     ).pipe(
       retry(1),
       catchError(this.handleError)
@@ -271,6 +275,11 @@ export class AuthService {
     return this.http.get<any>( this.env.API_URL+'auth/getallinfo');
   }
 
+  getNivelInfo(nivel:Number): Observable<any>
+  {
+    return this.http.post<any>( this.env.API_URL+'auth/getnivelinfo',{nivel:nivel});  
+  }
+
   getOrdem(): Observable<any>
   {
     return this.http.get<any>( this.env.API_URL+'auth/getordem');  
@@ -281,9 +290,22 @@ export class AuthService {
     return this.http.get<any>( this.env.API_URL+'auth/getordem');  
   }
 
+  getNivelOrdem(nivel:Number): Observable<any>
+  {
+    return this.http.post<any>( this.env.API_URL+'auth/getnivelordem',{nivel:nivel});  
+  }
+
   getCargos()
   {
     return this.http.get<any>( this.env.API_URL+'auth/getcargos').pipe(
+      retry(1),
+      catchError(this.handleError)
+      ); 
+  }
+
+  getIdCargos(id:Number): Observable<any>
+  {
+    return this.http.post<any>( this.env.API_URL+'auth/getidcargos', {id:id}).pipe(
       retry(1),
       catchError(this.handleError)
       ); 

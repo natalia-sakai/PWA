@@ -1,7 +1,8 @@
+import { AlertService } from './services/alert.service';
 import { AuthService } from './services/auth.service';
 import { Component } from '@angular/core';
 
-import { Platform, MenuController, NavController, IonSplitPane } from '@ionic/angular';
+import { Platform, MenuController, NavController, IonSplitPane, AlertController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
@@ -76,13 +77,8 @@ export class AppComponent {
     },
     {
       title: 'Financeiro',
-      url: '/financeiro',
+      url: '/adminfinanceiro',
       icon: 'cash'
-    },
-    {
-      title: 'Work to do',
-      url: '/work',
-      icon: 'bookmark'
     },
     {
       title: 'My account',
@@ -97,7 +93,9 @@ export class AppComponent {
     private statusBar: StatusBar,
     private menu: MenuController,
     private navCtrl: NavController,
-    private authService: AuthService
+    private authService: AuthService,
+    private alertService: AlertService,
+    private alertCtrl : AlertController
   ) {
     this.initializeApp();
   }
@@ -123,8 +121,39 @@ export class AppComponent {
 
     this.authService.reuniao().subscribe(data=>{
       console.log(data);
-    })
+    });
+
+    this.authService.getToken();
   }
-  
+  async logout() {
+    let alert = await this.alertCtrl.create({
+      header: 'Deseja mesmo sair?',
+      buttons: [
+        {
+          text: 'Não',
+          role:'cancel',
+          cssClass: 'secondary'
+        },
+        {
+          text: 'Sim',
+          handler: ()=>{
+            this.authService.logout().subscribe(
+              data => {
+                this.alertService.presentToast(data['message']); 
+                window.location.reload();      
+              },
+              error => {
+                console.log(error);
+              },
+              () => {
+                this.navCtrl.navigateRoot('/home');
+              }
+            );
+          } 
+        }
+      ]
+    });
+    await alert.present();
+  }
   
 }

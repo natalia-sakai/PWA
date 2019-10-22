@@ -17,16 +17,16 @@ export class InformativoPage implements OnInit {
   }
   public info: any[] = [];
   async showinfo() {
-    await this.authService.getInfo()
-    .subscribe(
+    this.authService.user().subscribe(resul=>{
+      //pega o nivel do usuario
+      this.authService.getNivelInfo(resul.nivel)
+      .subscribe(
       data =>{
-        for(let i=0; i<data.length; i++){
-          this.info[i]=data[i].info;
+        for(let i=0; i<data.length;i++)
+        {
+         this.info[i] = data[i].info
         }
-      }, 
-      error=>{
-        console.log(error);
-      }
-    );
+      });
+    });
   }
 }

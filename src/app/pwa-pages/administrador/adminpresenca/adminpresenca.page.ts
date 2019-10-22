@@ -1,5 +1,6 @@
+import { DatePipe } from '@angular/common';
 import { NavController } from '@ionic/angular';
-import { AuthService } from './../../../services/auth.service';
+import { AuthService } from '../../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -15,9 +16,8 @@ export class AdminpresencaPage implements OnInit {
   public name: any[]=[];
   public presenca: any[] = [];
   public aux = " ";
-  public cor;
 
-  constructor(private authService: AuthService, private navCtrl: NavController) { }
+  constructor(private authService: AuthService, private navCtrl: NavController,private dataPipe: DatePipe) { }
 
   ngOnInit() {
   }
@@ -32,7 +32,7 @@ export class AdminpresencaPage implements OnInit {
     await this.authService.getReuniao()
     .subscribe(
     data=>{ 
-        this.data = JSON.stringify(data);
+      this.data = (this.dataPipe.transform(data[0].data, "dd/MM"));
     }
     , error=>{ 
       console.log("error: " + error);
@@ -55,28 +55,20 @@ export class AdminpresencaPage implements OnInit {
             if(data[i].presenca == 0)
             {
               this.presenca[i] = "Não estará presente";
-              this.cor = "danger";
             }
             else{
               this.presenca[i]= "Estará presente";
-              this.cor="success";
             }
             this.id_user[i] = data[i].id_user;
             this.authService.getUsers(this.id_user[i]).subscribe(resul=>{
               this.name[i] = resul[0].first_name+this.aux+resul[0].last_name;
             });
           }
-          this.handlelista();
         }
     },
     error=>{
       console.log(error);
     });
-  }
-
-  handlelista()
-  {
-    console.log(this.name);
   }
 
   historico()

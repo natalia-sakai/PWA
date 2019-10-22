@@ -1,3 +1,4 @@
+import { Storage } from '@ionic/storage';
 import { GlobalService } from './../../services/global.service';
 import { Reuniao } from './../../model/reuniao';
 import { EnvService } from './../../services/env.service';
@@ -8,9 +9,7 @@ import { MenuController, ToastController, AlertController, ActionSheetController
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/model/user';
 import { ActivatedRoute, Router } from '@angular/router';
-import { empty } from 'rxjs';
-import { count } from 'rxjs/operators';
-import { getLocaleDayNames } from '@angular/common';
+import { getLocaleDayNames, DatePipe } from '@angular/common';
 import { stringify } from 'querystring';
 @Component({
   selector: 'app-dashboard',
@@ -31,24 +30,35 @@ export class DashboardPage implements OnInit {
   public motivo: any;
   public ordem: any[] = [];
   public info: any[] = [];
+  public qtde=0;
+  public agape: any[]=[];
 
   constructor(private navCtrl:NavController, private authService: AuthService, 
     private alertService: AlertService,private http: HttpClient,
     private env: EnvService, private route: ActivatedRoute,
-    private alertCtrl: AlertController, private global:GlobalService
+    private alertCtrl: AlertController, private global:GlobalService,
+    private storage: Storage,private dataPipe: DatePipe,
+    private menu: MenuController
   ) { 
+    this.menu.enable(true, 'app');
   }
   ngOnInit() {
+    
+
+  }
+  ionViewWillEnter()
+  {
+    this.verifica();
     this.showdata();
     this.showordem();
     this.showinfo();
-    this.verifica();
-
+    this.presenca();
+    this.showagape();
   }
   
-  async verifica(){ 
+  verifica(){ 
     //verifica se o usuario ja respondeu
-    await this.authService.getLista().subscribe(
+    this.authService.getLista().subscribe(
       resp => {
         //verifica se esta vazio, se tiver permite q o usuario escolha a opcao
         if(JSON.stringify(resp)=="{}")
@@ -59,27 +69,32 @@ export class DashboardPage implements OnInit {
         }
         else
         {
-          if(JSON.stringify(resp.presenca) == '1')
+          this.disabled1 = true;
+          this.disabled2 = true;
+          for(let i=0; i<resp.length;i++)
           {
-            this.p1 = "success";
-            this.p2 = "danger";
+            if(JSON.stringify(resp[i].presenca) == '1')
+            {
+              this.p1 = "success";
+              this.p2 = "primary";
+            }
+            else if(JSON.stringify(resp[i].presenca) == '0')
+            {
+              this.p2 = "success";
+              this.p1 = "primary";
+            }
+
+            //se ja tiver algum motivo
+            if(JSON.stringify(resp[i].motivo)!=null)
+            {
+              this.disabled3 = true;
+            }
+            else
+            {
+              this.disabled3 = false;
+            }
           }
-          else if(JSON.stringify(resp.presenca) == '0')
-          {
-            this.p2 = "success";
-            this.p1 = "primary";
-          }
         }
-        //se ja tiver algum motivo
-        if(JSON.stringify(resp.motivo)!=null)
-        {
-          this.disabled3 = true;
-        }
-        else
-        {
-          this.disabled3 = false;
-        }
-          
       },
       error => {
         //se nao possui o id no banco de dados, deixa habilitado para o usuario
@@ -94,8 +109,10 @@ export class DashboardPage implements OnInit {
     //mostra a data se tiver
     await this.authService.getReuniao()
     .subscribe(
-    data=>{ 
-        this.data_r = JSON.stringify(data);
+    resul=>{ 
+        console.log(resul);
+        this.data_r = (this.dataPipe.transform(resul[0].data, "dd/MM"));
+        this.storage.set('reuniao', resul[0].id);
         this.disabled1=false;
         this.disabled2=false;
         this.verifica();
@@ -105,7 +122,7 @@ export class DashboardPage implements OnInit {
     });
   }
 
-  async resposta(resp: Number)
+  resposta(resp: Number)
   {
     this.opcao = resp;
     if(this.opcao == 0)
@@ -115,9 +132,8 @@ export class DashboardPage implements OnInit {
     }
     else{
       this.motivo = "-";
-      this.lista(this.opcao, this.motivo)
+      this.lista(this.opcao, this.motivo);
     }
-    await this.verifica();
   }
 
   async bmotivo(opcao: Number)
@@ -159,22 +175,20 @@ export class DashboardPage implements OnInit {
       data=>{ 
         this.id = data.id;
         //manda pra funcão o id do usuario e a resposta, se ja tiver no bd ele atualiza para uma nova resposta
-        this.authService.confirma_presenca(this.id, this.opcao ,this.motivo).subscribe(
-          data => {t
-          },
+        this.authService.confirma_presenca(this.id, this.opcao ,this.motivo,this.global.reuniao).subscribe(
+          data => {},
           error => {
             console.log(error);
           },
           () => {
             this.alertService.presentToast('Confirmação enviada!');
-            this.verifica();
+            window.location.reload();
           }
         );
       }
       , error=>{ 
         console.log("error: " + error);
       });
-      await this.verifica();
   }
   editar()
   {
@@ -185,18 +199,17 @@ export class DashboardPage implements OnInit {
 
   async showordem()
   {
-    await this.authService.getOrdem()
-    .subscribe(
+    this.authService.user().subscribe(resul=>{
+      //pega o nivel do usuario
+      this.authService.getNivelOrdem(resul.nivel)
+      .subscribe(
       data =>{
         for(let i=0; i<data.length;i++)
         {
-          this.ordem[i]=data[i].ordem;
+         this.ordem[i] = data[i].ordem
         }
-      }, 
-      error=>{
-        console.log(error);
-      }
-    );
+      });
+    });
   }
   
   async showinfo()
@@ -212,5 +225,41 @@ export class DashboardPage implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  presenca()
+  {
+    this.authService.getLista().subscribe(
+      data=>{
+        if(JSON.stringify(data) == "{}")
+        {
+          this.qtde = 0;
+        } 
+        else 
+        {    
+          for(let i=0;i<data.length;i++)
+          {
+            if(data[i].presenca == 1)
+              this.qtde++;
+          }
+        }
+    },
+    error=>{
+      console.log(error);
+    });
+  }
+
+  async showagape()
+  {
+    await this.authService.getAgape().subscribe(
+      data=>{
+        for(let i=0; i<data.length;i++)
+        {
+          this.agape[i]=data[i].agape;
+        }
+    },
+    error=>{
+      console.log(error);
+    });
   }
 }

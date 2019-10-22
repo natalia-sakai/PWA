@@ -77,7 +77,7 @@ export class RegisterPage implements OnInit {
     else{
       this.authService.register(form.value.fName, form.value.lName, form.value.email, form.value.password, 
         this.daux, this.global.cargo, this.global.avental, this.auxtel, form.value.endereco, 
-        form.value.cidade, form.value.estado).subscribe(
+        form.value.cidade, form.value.estado, form.value.nivel).subscribe(
         data => {
           
           this.authService.login(form.value.email, form.value.password).subscribe(

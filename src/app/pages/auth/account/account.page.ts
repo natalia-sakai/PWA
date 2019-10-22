@@ -4,6 +4,7 @@ import { AuthService } from '../../../services/auth.service';
 import { ToastController, MenuController, AlertController, ActionSheetController, ModalController, NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/model/user';
+import { VirtualTimeScheduler } from 'rxjs';
 
 @Component({
   selector: 'app-account',
@@ -12,24 +13,29 @@ import { User } from 'src/app/model/user';
 })
 export class AccountPage implements OnInit {
 
-  lname:any;
-  fname:any;
-  email: any;
-  endereco: any;
-  cidade: any;
-  estado: any
-  telefone: any;
-  data_nasc: any;
+  public fname: any;
+  public lname: any;
+  public email: any;
+  public endereco: any;
+  public cidade: any;
+  public estado: any
+  public telefone: any;
+  public data_nasc: any;
+  public id: any;
+  public nivel:any;
+  public cargo: any;
   constructor(private authService : AuthService, private navCtrl : NavController) {
    }
 
   ngOnInit() {
+    
+  }
+  ionViewWillEnter(){
     this.showuser();
   }
-  
-  async showuser()
+  showuser()
   {
-    await this.authService.user()
+    this.authService.user()
     .subscribe(
     data=>{ 
       this.fname = data.first_name.replace("\"", "");
@@ -40,6 +46,15 @@ export class AccountPage implements OnInit {
       this.estado = data.estado.replace("\"", "");
       this.telefone = data.telefone.replace("\"", "");
       this.data_nasc = data.data_nasc.replace("\"", "");
+      this.authService.getIdCargos(data.cargo_id).subscribe(resul =>{
+        this.cargo = resul;
+      });
+      if(data.nivel == 1)
+        this.nivel = "Aprendiz";
+      else if(data.nivel == 2)
+        this.nivel = "Companheiro";
+      else if(data.nivel == 3)
+        this.nivel = "Mestre"
     }
     , error=>{ 
       console.log("error: " + error);

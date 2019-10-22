@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { AlertService } from './../../services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit } from '@angular/core';
@@ -13,22 +14,25 @@ export class AdminPage implements OnInit {
   public info: any[]=[];
   public ordem: any[]=[];
   public data:any;
-  public havedata:boolean;
   public confirm:boolean;
   public id_user:any[] = [];
   public motivo: any[] = [];
   public name: any[]=[];
+  public agape: any[]=[];
   public presenca: any[] = [];
   public aux = " ";
-  public cor;
+  public ausente=0;
+  public presente=0;
   constructor(
     private menu: MenuController,
     private platform: Platform,
     private authService: AuthService,
     private navCtrl: NavController,
     private alertService: AlertService,
-   private alertCtrl:AlertController
+    private alertCtrl:AlertController,
+    private dataPipe: DatePipe
     ) { 
+      this.menu.enable(true, 'web');
   }
 
   ngOnInit() {
@@ -40,23 +44,31 @@ export class AdminPage implements OnInit {
     this.showdata();
     this.showinfo();
     this.showordem();
+    this.showagape();
   }
   //#region Show
+
+  async showagape()
+  {
+    await this.authService.getAgape().subscribe(
+      data=>{
+        for(let i=0; i<data.length;i++)
+        {
+          this.agape[i]=data[i].agape;
+        }
+    },
+    error=>{
+      console.log(error);
+    });
+  }
+
   async showdata()
   {
     //mostra a data se tiver
     await this.authService.getReuniao()
     .subscribe(
     data=>{ 
-      //se tiver reunião habilita
-      if(JSON.stringify(data)=="{}" )
-      {
-        this.havedata=false;
-      }
-      else{
-        this.data = JSON.stringify(data);
-        this.havedata=true;
-      }
+      this.data = (this.dataPipe.transform(data[0].data, "dd/MM"));
     }
     , error=>{ 
       console.log("error: " + error);
@@ -69,6 +81,8 @@ export class AdminPage implements OnInit {
         if(JSON.stringify(data) == "{}")
         {
           this.confirm = false;
+          this.ausente = 0;
+          this.presente = 0;
         } 
         else 
         {    
@@ -79,30 +93,23 @@ export class AdminPage implements OnInit {
             if(data[i].presenca == 0)
             {
               this.presenca[i] = "Não estará presente";
-              this.cor = "danger";
+              this.ausente++;
             }
             else{
               this.presenca[i]= "Estará presente";
-              this.cor="success";
+              this.presente++;
             }
             this.id_user[i] = data[i].id_user;
             this.authService.getUsers(this.id_user[i]).subscribe(resul=>{
               this.name[i] = resul[0].first_name+this.aux+resul[0].last_name;
             });
           }
-          this.handlelista();
         }
     },
     error=>{
       console.log(error);
     });
   }
-
-  handlelista()
-  {
-    console.log(this.name);
-  }
-  
   async showinfo() {
     await this.authService.getInfo().subscribe(
       data=>{
@@ -207,13 +214,17 @@ export class AdminPage implements OnInit {
 
   async addordem(ordem:any){
     this.authService.getId().subscribe(data=>{
-      this.authService.ordem(ordem,data.id).subscribe(
+      this.authService.ordem(ordem,data.id,1).subscribe(
         data=> {
           this.alertService.presentToast("Ordem criada com sucesso!");
           window.location.reload();
         }
       )
     })
+  }
+
+  cadastraragape(){
+
   }
   //#endregion
 }

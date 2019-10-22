@@ -10,4 +10,7 @@ export class User {
     estado: string;
     data_nasc: any;
     telefone: string;
+    nivel: number;
+    cargo_id: number;
+    avental_id: number;
 }

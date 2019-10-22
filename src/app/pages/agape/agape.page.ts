@@ -11,8 +11,9 @@ export class AgapePage implements OnInit {
   constructor(public authService: AuthService) { }
 
   ngOnInit() {
-    this.showagape();
+    
   }
+  ionViewWillEnter(){this.showagape();}
   public agape: any[] = [];
   async showagape() {
     await this.authService.getAgape()

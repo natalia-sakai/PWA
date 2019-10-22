@@ -1,3 +1,5 @@
+import { EditordemPage } from './../../edit/editordem/editordem.page';
+import { CadastraordemPage } from '../../cadastra/cadastraordem/cadastraordem.page';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -5,12 +7,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AdmininfoPage } from './admininfo.page';
+import { AdminordemPage } from './adminordem.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: AdmininfoPage
+    component: AdminordemPage
   }
 ];
 
@@ -21,6 +23,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [AdmininfoPage]
+  declarations: [AdminordemPage, CadastraordemPage, EditordemPage],
+  entryComponents: [CadastraordemPage,EditordemPage]
 })
-export class AdmininfoPageModule {}
+export class AdminordemPageModule {}

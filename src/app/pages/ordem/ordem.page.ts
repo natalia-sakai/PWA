@@ -7,27 +7,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ordem.page.scss'],
 })
 export class OrdemPage implements OnInit {
-
+  public ordem: any[] = [];
   constructor(public authService: AuthService) { }
 
   ngOnInit() {
-    this.showordem();
+    
   }
-
-  public ordem: any[] = [];
-  
+  ionViewWillEnter(){this.showordem();}
   async showordem() {
-    await this.authService.getOrdem()
-    .subscribe(
+    this.authService.user().subscribe(resul=>{
+      //pega o nivel do usuario
+      this.authService.getNivelOrdem(resul.nivel)
+      .subscribe(
       data =>{
         for(let i=0; i<data.length;i++)
         {
-          this.ordem[i]=data[i].ordem;
+         this.ordem[i] = data[i].ordem
         }
-      }, 
-      error=>{
-        console.log(error);
-      }
-    );
+      });
+    });
   }
 }

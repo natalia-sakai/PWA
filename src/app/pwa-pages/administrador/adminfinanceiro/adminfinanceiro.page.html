@@ -1,0 +1,30 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+      <ion-title>Financeiro</ion-title>
+    </ion-toolbar>
+  </ion-header>
+    
+  <ion-content padding>
+      <ion-card>
+        <ion-card-header>
+          <ion-buttons>
+            <ion-button color="primary" fill="clear" (click)="cadastrar()">CADASTRAR</ion-button>
+            <ion-button color="primary" fill="clear" (click)="boleto()">GERAR BOLETO</ion-button>
+            <ion-button color="primary" fill="clear" (click)="relatorio()">RELATÓRIO</ion-button>
+          </ion-buttons>
+        </ion-card-header>
+      </ion-card>
+      <ion-card>
+          <ion-card-header>
+            <ion-card-title text-center>Situações</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-list lines="none">
+               
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+  </ion-content>
