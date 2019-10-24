@@ -12,7 +12,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./adminordem.page.scss'],
 })
 export class AdminordemPage implements OnInit {
-
+  public ordem: any[]=[];
+  public disabled1=true;
   constructor(public authService: AuthService,
     private alertService: AlertService, 
     private alertCtrl:AlertController, 
@@ -26,9 +27,16 @@ export class AdminordemPage implements OnInit {
   }
   ionViewWillEnter(){
     this.showordem();
+    this.permissao();
   }
-  public ordem: any[]=[];
   
+  permissao(){
+    this.authService.user().subscribe(data=>{
+      if(data.cargo_id == 9 || data.cargo_id == 4){
+        this.disabled1 = false;
+      }
+    });
+  }
   async showordem() {
     await this.authService.getOrdem().subscribe(
       data=>{

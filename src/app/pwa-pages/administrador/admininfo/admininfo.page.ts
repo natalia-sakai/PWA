@@ -15,6 +15,7 @@ export class AdmininfoPage implements OnInit {
   
   public info: any[]=[];
   public inform:any;
+  public disabled1=true;
   constructor(public authService: AuthService, private alertService: AlertService,
      private alertCtrl:AlertController, private navCtrl: NavController,
      private modalCtrl: ModalController) { }
@@ -26,8 +27,15 @@ export class AdmininfoPage implements OnInit {
   ionViewWillEnter()
   {
     this.showinfo();
+    this.permissao();
   }
-
+  permissao(){
+    this.authService.user().subscribe(data=>{
+      if(data.cargo_id == 9 || data.cargo_id == 4){
+        this.disabled1 = false;
+      }
+    });
+  }
   async showinfo() {
     await this.authService.getInfo().subscribe(
       data=>{

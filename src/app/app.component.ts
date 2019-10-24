@@ -19,6 +19,11 @@ export class AppComponent {
       icon: 'home'
     },
     {
+      title: 'Mural',
+      url: '/mural',
+      icon: 'chatbubbles'
+    },
+    {
       title: 'Informativos',
       url: '/informativo',
       icon: 'paper'
@@ -54,6 +59,11 @@ export class AppComponent {
       title: 'Home',
       url: '/admin',
       icon: 'home'
+    },
+    {
+      title: 'Mural',
+      url: '/mural',
+      icon: 'chatbubbles'
     },
     {
       title: 'Lista de presença',

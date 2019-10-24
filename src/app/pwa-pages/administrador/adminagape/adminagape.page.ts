@@ -10,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminagapePage implements OnInit {
   public agape: any[]=[];
+  public disabled1=true;
   constructor(private authService: AuthService,
     private alertService: AlertService, 
     private alertCtrl:AlertController, 
@@ -19,8 +20,15 @@ export class AdminagapePage implements OnInit {
   }
   ionViewWillEnter(){
     this.showagape();
+    this.permissao();
   }
-  
+  permissao(){
+    this.authService.user().subscribe(data=>{
+      if(data.cargo_id == 11 || data.cargo_id == 8 || data.cargo_id ==4){
+        this.disabled1 = false;
+      }
+    });
+  }
   async showagape()
   {
     await this.authService.getAgape().subscribe(
@@ -128,7 +136,7 @@ export class AdminagapePage implements OnInit {
   }
 
   async add(agape:any, date:any){
-    this.authService.getId().subscribe(data=>{
+    this.authService.user().subscribe(data=>{
       this.authService.agape(agape,data.id,date).subscribe(
         data=> {
           this.alertService.presentToast("Ágape criada com sucesso!");

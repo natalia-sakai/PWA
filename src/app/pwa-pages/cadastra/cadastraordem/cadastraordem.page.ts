@@ -24,7 +24,7 @@ export class CadastraordemPage implements OnInit {
 
   cadastrar(form:any){
 
-    this.authService.getId().subscribe(data=>{
+    this.authService.user().subscribe(data=>{
       this.authService.ordem(form.value.ordem,data.id,form.value.nivel).subscribe(
         data=> {
           this.alertService.presentToast("Ordem criada com sucesso!");

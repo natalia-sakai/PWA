@@ -24,7 +24,7 @@ export class AccountPage implements OnInit {
   public id: any;
   public nivel:any;
   public cargo: any;
-  constructor(private authService : AuthService, private navCtrl : NavController) {
+  constructor(private authService : AuthService, private modalCtrl: ModalController) {
    }
 
   ngOnInit() {
@@ -62,11 +62,17 @@ export class AccountPage implements OnInit {
   }
 
   async editardados(){
-    this.navCtrl.navigateRoot('/editdados');
+    const editar = await this.modalCtrl.create({
+      component: EditdadosPage
+    });
+    return await editar.present();
   }
 
   async editarsenha(){
-    this.navCtrl.navigateRoot('/editsenha');
+    const editar = await this.modalCtrl.create({
+      component: EditsenhaPage
+    });
+    return await editar.present();
   }
   
 

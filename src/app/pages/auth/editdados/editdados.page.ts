@@ -29,7 +29,7 @@ export class EditdadosPage implements OnInit {
   public cargo: any;
   public cargos:any[]=[];
   constructor(private authService: AuthService, private alertService: AlertService, 
-    private navCtrl: NavController, private storage: Storage,private global: GlobalService) { }
+    private navCtrl: NavController, private storage: Storage,private global: GlobalService, private modalCtrl: ModalController) { }
 
   ngOnInit() {
     
@@ -37,8 +37,8 @@ export class EditdadosPage implements OnInit {
   ionViewWillEnter(){
     this.showdados();
   }
-  dismiss() {
-    this.navCtrl.navigateRoot('/account');
+  dismiss(){
+    this.modalCtrl.dismiss();
   }
 
   showdados()
@@ -67,6 +67,7 @@ export class EditdadosPage implements OnInit {
           this.checked3 = "true";
           break;
       }
+      console.log(data.cargo_id);
       this.authService.getIdCargos(data.cargo_id).subscribe(resul =>{
         this.cargo = resul;
       });
@@ -96,7 +97,7 @@ export class EditdadosPage implements OnInit {
         }
       }
     });
-    this.authService.getId()
+    this.authService.user()
     .subscribe(
     data=>{ 
       this.id = data.id;

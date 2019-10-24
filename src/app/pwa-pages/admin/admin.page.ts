@@ -170,7 +170,7 @@ export class AdminPage implements OnInit {
   }
 
   async addinfo(info:any){
-    this.authService.getId().subscribe(data=>{
+    this.authService.user().subscribe(data=>{
       this.authService.informativo(info,data.id,1).subscribe(
         data=> {
           this.alertService.presentToast("Informativo criado com sucesso!");
@@ -213,7 +213,7 @@ export class AdminPage implements OnInit {
   }
 
   async addordem(ordem:any){
-    this.authService.getId().subscribe(data=>{
+    this.authService.user().subscribe(data=>{
       this.authService.ordem(ordem,data.id,1).subscribe(
         data=> {
           this.alertService.presentToast("Ordem criada com sucesso!");

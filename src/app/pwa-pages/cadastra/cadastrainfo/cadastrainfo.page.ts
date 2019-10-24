@@ -19,7 +19,7 @@ export class CadastrainfoPage implements OnInit {
     this.modalCtrl.dismiss();
   }
   async cadastrar(form:any){
-    this.authService.getId().subscribe(data=>{
+    this.authService.user().subscribe(data=>{
       this.authService.informativo(form.value.info,data.id,form.value.nivel).subscribe(
         data=> {
           this.alertService.presentToast("Informativo criado com sucesso!");

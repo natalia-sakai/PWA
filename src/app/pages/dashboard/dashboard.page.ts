@@ -170,7 +170,7 @@ export class DashboardPage implements OnInit {
 
   async lista(opcao: Number, motivo: String)
   {
-    await this.authService.getId()
+    await this.authService.user()
       .subscribe(
       data=>{ 
         this.id = data.id;

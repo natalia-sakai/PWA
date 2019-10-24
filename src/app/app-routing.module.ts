@@ -32,7 +32,13 @@ const routes: Routes = [
   { path: 'adminfinanceiro', loadChildren: './pwa-pages/administrador/adminfinanceiro/adminfinanceiro.module#AdminfinanceiroPageModule' },
   { path: 'cadastraordem', loadChildren: './pwa-pages/cadastra/cadastraordem/cadastraordem.module#CadastraordemPageModule' },
   { path: 'editordem', loadChildren: './pwa-pages/edit/editordem/editordem.module#EditordemPageModule' },  { path: 'editinfo', loadChildren: './pwa-pages/edit/editinfo/editinfo.module#EditinfoPageModule' },
-  { path: 'cadastrainfo', loadChildren: './pwa-pages/cadastra/cadastrainfo/cadastrainfo.module#CadastrainfoPageModule' }
+  { path: 'cadastrainfo', loadChildren: './pwa-pages/cadastra/cadastrainfo/cadastrainfo.module#CadastrainfoPageModule' },
+  { path: 'cadastrafinanceiro', loadChildren: './pwa-pages/cadastra/cadastrafinanceiro/cadastrafinanceiro.module#CadastrafinanceiroPageModule' },
+  { path: 'hisfinanceiro', loadChildren: './pwa-pages/historico/hisfinanceiro/hisfinanceiro.module#HisfinanceiroPageModule' },
+  { path: 'cadastraagape', loadChildren: './pwa-pages/cadastra/cadastraagape/cadastraagape.module#CadastraagapePageModule' },
+  { path: 'editagape', loadChildren: './pwa-pages/edit/editagape/editagape.module#EditagapePageModule' },
+  { path: 'editpresenca', loadChildren: './pwa-pages/edit/editpresenca/editpresenca.module#EditpresencaPageModule' },
+  { path: 'mural', loadChildren: './pages/mural/mural.module#MuralPageModule' }
 
 
 

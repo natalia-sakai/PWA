@@ -10,7 +10,7 @@
   <ion-content padding>
       <ion-card>
           <ion-card-header>
-            <ion-card-title>Dados Pessoais</ion-card-title>
+            <ion-card-title text-center>Dados Pessoais</ion-card-title>
           </ion-card-header>
           <ion-card-content>
             <ion-list lines="none">
@@ -45,9 +45,10 @@
                 <h3>Nivel:</h3>&nbsp;<h3>{{this.nivel}}</h3>
               </ion-item>
             </ion-list>
-              <br>
-              <ion-button color="primary" (click)=editardados()>Editar dados</ion-button>
-              <ion-button color="primary" (click)=editarsenha()>Editar senha</ion-button>
+            <ion-buttons>
+                <ion-button color="primary" fill="clear" (click)=editardados()>Editar dados</ion-button>
+                <ion-button color="primary" fill="clear" (click)=editarsenha()>Editar senha</ion-button>
+            </ion-buttons>
           </ion-card-content>
       </ion-card>
   </ion-content>

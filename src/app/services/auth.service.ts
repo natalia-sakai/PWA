@@ -174,6 +174,15 @@ export class AuthService {
       catchError(this.handleError)
     ); 
   }
+
+  updatelista(id: Number, motivo: String, presenca:Number) {
+    return this.http.put(this.env.API_URL + 'auth/updatelista',
+    {id: id, motivo:motivo, presenca: presenca}
+    ).pipe(
+      retry(1),
+      catchError(this.handleError)
+    ); 
+  }
   //#endregion
 
   //#region GET
@@ -213,18 +222,6 @@ export class AuthService {
   getUsers(id: Number){
     return this.http.post(this.env.API_URL + 'auth/getusers',
     {id_user:id}
-    ); 
-  }
-
-  getId(): Observable<any>
-  {
-    const headers = new HttpHeaders({
-      'Authorization': "Bearer "+this.global.access
-    });
-    return this.http.get<any>(this.env.API_URL + 'auth/user', { headers: headers })
-    .pipe(
-      retry(1),
-      catchError(this.handleError)
     ); 
   }
 
@@ -329,6 +326,33 @@ export class AuthService {
 
   getAvental(){
     return this.http.get<any>( this.env.API_URL+'auth/getavental').pipe(
+      retry(1),
+      catchError(this.handleError)
+      );
+  }
+
+  getAllFinanceiro(id_user: Number): Observable<any>
+  {
+    return this.http.post<any>( this.env.API_URL+'auth/getallfinanceiro', 
+    {id_user: id_user})
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+      ); 
+  }
+
+  getFinanceiro(id_user: Number): Observable<any>
+  {
+    return this.http.post<any>( this.env.API_URL+'auth/getfinanceiro', 
+    {id_user: id_user})
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+      ); 
+  }
+
+  getMural(){
+    return this.http.get<any>( this.env.API_URL+'auth/getmural').pipe(
       retry(1),
       catchError(this.handleError)
       );
