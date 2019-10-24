@@ -21,6 +21,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
+  //declarations: [CadastrafinanceiroPage]
   declarations: [CadastrafinanceiroPage]
 })
 export class CadastrafinanceiroPageModule {}

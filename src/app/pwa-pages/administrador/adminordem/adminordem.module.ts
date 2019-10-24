@@ -23,7 +23,8 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [AdminordemPage, CadastraordemPage, EditordemPage],
+  //declarations: [AdminordemPage, CadastraordemPage, EditordemPage],
+  declarations: [AdminordemPage],
   entryComponents: [CadastraordemPage,EditordemPage]
 })
 export class AdminordemPageModule {}

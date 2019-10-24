@@ -15,4 +15,8 @@ export class CadastrafinanceiroPage implements OnInit {
   dismiss(){
     this.modalCtrl.dismiss();
   }
+
+  cadastrar(form:any){
+
+  }
 }

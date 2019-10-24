@@ -1,4 +1,6 @@
-import { AlertController, NavController } from '@ionic/angular';
+import { CadastraagapePage } from './../../cadastra/cadastraagape/cadastraagape.page';
+import { EditagapePage } from './../../edit/editagape/editagape.page';
+import { AlertController, NavController, ModalController } from '@ionic/angular';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit } from '@angular/core';
@@ -14,7 +16,7 @@ export class AdminagapePage implements OnInit {
   constructor(private authService: AuthService,
     private alertService: AlertService, 
     private alertCtrl:AlertController, 
-    private navCtrl: NavController) { }
+    private navCtrl: NavController, private modalCtrl: ModalController) { }
 
   ngOnInit() {
   }
@@ -43,107 +45,22 @@ export class AdminagapePage implements OnInit {
     });
   }
 
-  async openActions(agape:any){
-    let alertTeste = await this.alertCtrl.create({
-      header: 'Edite o ágape',
-      inputs: [
-        {
-          name: 'agape',
-          type: 'text',
-          placeholder: 'agape'
-        },
-        {
-          name: 'data',
-          type: 'date'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancelar',
-          //role cancel deixa ele como segunda opcao
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: ()=>{
-          
-          }
-        },
-        {
-          text: 'Salvar',
-          handler: (form)=> {
-            this.edit(form.agape, agape, form.data);
-          }
-        }
-      ]
+  async cadastrar(){
+    const cadastrar = await this.modalCtrl.create({
+      component: CadastraagapePage
     });
-    await alertTeste.present();
+    return await cadastrar.present();
   }
 
-  async edit(novo:any, antigo:any, date:any){
-    await this.authService.getAgape().subscribe(
-    data=>{
-      for(let i=0; i<data.length;i++)
-      {
-        if(antigo == data[i].agape && data[i].ativo == 1)
-        {
-          this.authService.updateagape(data[i].id, novo, 1, date).subscribe(
-            data=>{
-              this.alertService.presentToast("Ágape editado com sucesso!");
-              window.location.reload();
-            }
-          )
-        }
+  async editar(inform:any){
+    const editar = await this.modalCtrl.create({
+      component: EditagapePage, 
+      componentProps:{
+        inform: inform,
+        other: {couldAlsoBeAnObject: true}
       }
-  },
-  error=>{
-    console.log(error);
-  });
-  }
-
-  async cadastrar()
-  {
-    let alertTeste = await this.alertCtrl.create({
-      header: 'Cadastre um ágape',
-      inputs: [
-        {
-          name: 'agape',
-          type: 'text',
-          placeholder: 'agape'
-        },
-        {
-          name: 'data',
-          type: 'date'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancelar',
-          //role cancel deixa ele como segunda opcao
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: ()=>{
-          
-          }
-        },
-        {
-          text: 'Salvar',
-          handler: (form)=> {
-            this.add(form.agape, form.data);
-          }
-        }
-      ]
     });
-    await alertTeste.present();
-  }
-
-  async add(agape:any, date:any){
-    this.authService.user().subscribe(data=>{
-      this.authService.agape(agape,data.id,date).subscribe(
-        data=> {
-          this.alertService.presentToast("Ágape criada com sucesso!");
-          window.location.reload();
-        }
-      )
-    })
+    return await editar.present();
   }
 
   async delete(agape: any){

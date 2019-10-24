@@ -22,7 +22,8 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [AdminfinanceiroPage, CadastrafinanceiroPage],
+  //declarations: [AdminfinanceiroPage, CadastrafinanceiroPage],
+  declarations: [AdminfinanceiroPage],
   entryComponents: [CadastrafinanceiroPage]
 })
 export class AdminfinanceiroPageModule {}

@@ -21,6 +21,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [EditsenhaPage]
+  // declarations: [EditsenhaPage]
+  declarations: []
 })
 export class EditsenhaPageModule {}

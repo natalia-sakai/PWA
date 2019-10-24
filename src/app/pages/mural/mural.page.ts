@@ -39,11 +39,11 @@ export class MuralPage implements OnInit {
 
   }
 
-  editar(){
+  editar(form:any){
 
   }
 
-  delete(){
+  delete(form:any){
     
   }
 }
