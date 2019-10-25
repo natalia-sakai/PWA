@@ -1,3 +1,4 @@
+import { AppRoutingPreloaderService } from './../../../route-to-preload';
 import { CadastrainfoPage } from './../../cadastra/cadastrainfo/cadastrainfo.page';
 import { EditinfoPage } from './../../edit/editinfo/editinfo.page';
 import { Router } from '@angular/router';
@@ -18,12 +19,16 @@ export class AdmininfoPage implements OnInit {
   public disabled1=true;
   constructor(public authService: AuthService, private alertService: AlertService,
      private alertCtrl:AlertController, private navCtrl: NavController,
-     private modalCtrl: ModalController) { }
+     private modalCtrl: ModalController, private routingService:AppRoutingPreloaderService) { }
 
   ngOnInit() {
     
   }
-
+  async ionViewDidEnter() {
+    await this.routingService.preloadRoute('editinfo');
+    await this.routingService.preloadRoute('cadastrainfo');
+    await this.routingService.preloadRoute('hisinfo');
+  }
   ionViewWillEnter()
   {
     this.showinfo();
@@ -41,7 +46,7 @@ export class AdmininfoPage implements OnInit {
       data=>{
         for(let i=0; i<data.length;i++)
         {
-          this.info[i]=data[i].info;
+          this.info[i]=data[i];
         }
     },
     error=>{
@@ -55,28 +60,27 @@ export class AdmininfoPage implements OnInit {
     return await cadastrar.present();
   }
 
-  async editar(inform:any){
+  async editar(id:any){
+    console.log(id)
     const editar = await this.modalCtrl.create({
       component: EditinfoPage, 
       componentProps:{
-        inform: inform,
+        id: id,
         other: {couldAlsoBeAnObject: true}
       }
     });
     return await editar.present();
   }
   
-  async delete(inform: any){
+  async delete(id: any){
     await this.authService.getInfo().subscribe(
       data=>{
         for(let i=0; i<data.length;i++)
         {
-          //informação tem que estar ativa
-          if(inform == data[i].info && data[i].ativo == 1)
+          if(id == data[i].id)
           {
-            console.log(data[i].id);
             //muda o ativo para zero
-            this.authService.updateinfo(data[i].id, inform, 0, data[i].nivel).subscribe(
+            this.authService.updateinfo(data[i].id, data[i].info, 0, data[i].nivel).subscribe(
               data=>{
                 this.alertService.presentToast("Informativo excluido com sucesso!");
                 window.location.reload();

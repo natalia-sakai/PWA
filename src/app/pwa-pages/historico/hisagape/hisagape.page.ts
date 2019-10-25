@@ -26,7 +26,6 @@ export class HisagapePage implements OnInit {
         for(let i=0; i<data.length;i++)
         {
           this.agape[i]=data[i].agape;
-          console.log(data[i].data);
           this.date[i]=(this.dataPipe.transform(data[i].data, "dd/MM/yyyy"));
           if(data[i].ativo == 1)
             this.ativo[i] = "Sim";

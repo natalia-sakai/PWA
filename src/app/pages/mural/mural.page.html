@@ -27,12 +27,12 @@
         </ion-label>
       </ion-item>
       <ion-item lines="none">
-        <ion-label>{{murals.text}}</ion-label>
+        <ion-label>{{murals.texto}}</ion-label>
       </ion-item>
       <ion-item lines="none" *ngIf="murals.ativo == 1">
         <ion-buttons slot="start">
-          <ion-button fill="clear" (click)="delete(murals)" color="danger"><ion-icon name="trash"></ion-icon></ion-button>
-          <ion-button color="primary" fill="clear" (click)="editar(murals)"><ion-icon name="create"></ion-icon></ion-button>
+          <ion-button fill="clear" (click)="delete(murals.id)" color="danger"><ion-icon name="trash"></ion-icon></ion-button>
+          <ion-button color="primary" fill="clear" (click)="editar(murals.id)"><ion-icon name="create"></ion-icon></ion-button>
         </ion-buttons>
       </ion-item>
     </ion-card-content>

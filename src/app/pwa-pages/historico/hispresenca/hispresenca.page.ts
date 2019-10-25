@@ -1,3 +1,4 @@
+import { AppRoutingPreloaderService } from './../../../route-to-preload';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { NavController } from '@ionic/angular';
@@ -15,9 +16,12 @@ export class HispresencaPage implements OnInit {
   public id:any;
 
   
-  constructor(private authService: AuthService, private dataPipe: DatePipe, private navCtrl: NavController) { }
+  constructor(private authService: AuthService, private dataPipe: DatePipe, private navCtrl: NavController, private routingService: AppRoutingPreloaderService) { }
 
   ngOnInit() {
+  }
+  async ionViewDidEnter() {
+    await this.routingService.preloadRoute('hislista');
   }
   ionViewWillEnter()
   {

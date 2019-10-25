@@ -1,4 +1,3 @@
-import { AccountPage } from './../account/account.page';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -6,12 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { EditdadosPage } from './editdados.page';
+import { CadastramuralPage } from './cadastramural.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: EditdadosPage
+    component: CadastramuralPage
   }
 ];
 
@@ -22,7 +21,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [EditdadosPage]
-  // declarations: []
+  declarations: [CadastramuralPage]
 })
-export class EditdadosPageModule {}
+export class CadastramuralPageModule {}

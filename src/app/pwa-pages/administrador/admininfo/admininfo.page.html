@@ -30,7 +30,7 @@
               <ion-col size="9">
                 <ion-item-sliding *ngFor="let inform of info">
                   <ion-item>
-                      <ion-label>{{inform}}</ion-label>
+                      <ion-label>{{inform.info}}</ion-label>
                   </ion-item>
                 </ion-item-sliding>
               </ion-col>
@@ -38,8 +38,8 @@
               <ion-item-sliding *ngFor="let inform of info">
                 <ion-item>
                   <ion-buttons slot="end">
-                    <ion-button fill="clear" (click)="delete(inform)" color="danger"><ion-icon name="trash"></ion-icon></ion-button>
-                    <ion-button color="primary" fill="clear" (click)="editar(inform)"><ion-icon name="create"></ion-icon></ion-button>
+                    <ion-button fill="clear" (click)="delete(inform.id)" color="danger"><ion-icon name="trash"></ion-icon></ion-button>
+                    <ion-button color="primary" fill="clear" (click)="editar(inform.id)"><ion-icon name="create"></ion-icon></ion-button>
                   </ion-buttons>
                 </ion-item>
               </ion-item-sliding>

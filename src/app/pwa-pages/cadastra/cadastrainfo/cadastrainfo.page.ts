@@ -26,7 +26,7 @@ export class CadastrainfoPage implements OnInit {
           this.dismiss();
           window.location.reload();
         }
-      )
-    })
+      );
+    });
   }
 }

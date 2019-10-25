@@ -1,3 +1,4 @@
+import { AppRoutingPreloaderService } from './route-to-preload';
 import { AlertService } from './services/alert.service';
 import { AuthService } from './services/auth.service';
 import { Component } from '@angular/core';
@@ -105,9 +106,16 @@ export class AppComponent {
     private navCtrl: NavController,
     private authService: AuthService,
     private alertService: AlertService,
-    private alertCtrl : AlertController
+    private alertCtrl : AlertController,
+    private routingService: AppRoutingPreloaderService
   ) {
     this.initializeApp();
+  }
+  async ionViewDidEnter() {
+    await this.routingService.preloadRoute('dashboard');
+    await this.routingService.preloadRoute('admin');
+    await this.routingService.preloadRoute('mural');
+    await this.routingService.preloadRoute('account');
   }
   public disabled: boolean;
   initializeApp() {
@@ -118,6 +126,7 @@ export class AppComponent {
         this.splashScreen.hide();
         this.disabled = false;
         //fazer verificação do login tbm
+        
         this.menu.enable(true, 'app');
         this.menu.enable(false, 'web');
       }

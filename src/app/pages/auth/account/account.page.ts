@@ -1,3 +1,4 @@
+import { AppRoutingPreloaderService } from './../../../route-to-preload';
 import { EditsenhaPage } from './../editsenha/editsenha.page';
 import { EditdadosPage } from './../editdados/editdados.page';
 import { AuthService } from '../../../services/auth.service';
@@ -24,7 +25,7 @@ export class AccountPage implements OnInit {
   public id: any;
   public nivel:any;
   public cargo: any;
-  constructor(private authService : AuthService, private modalCtrl: ModalController) {
+  constructor(private authService : AuthService, private modalCtrl: ModalController, private routingService: AppRoutingPreloaderService) {
    }
 
   ngOnInit() {
@@ -32,6 +33,10 @@ export class AccountPage implements OnInit {
   }
   ionViewWillEnter(){
     this.showuser();
+  }
+  async ionViewDidEnter() {
+    await this.routingService.preloadRoute('editsenha');
+    await this.routingService.preloadRoute('editdados');
   }
   showuser()
   {

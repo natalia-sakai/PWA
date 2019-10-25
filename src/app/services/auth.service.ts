@@ -96,7 +96,6 @@ export class AuthService {
       catchError(this.handleError)
     ); 
   }
-
   
   informativo(info:String, id_user:Number, nivel: Number){
     return this.http.post(this.env.API_URL + 'auth/informativo', {
@@ -133,6 +132,14 @@ export class AuthService {
     ); 
   }
 
+  mural(id_user: Number, text: String){
+    return this.http.post(this.env.API_URL + 'auth/mural',
+      {id_users: id_user, texto: text}
+    ).pipe(
+      retry(1),
+      catchError(this.handleError)
+    ); 
+  }
   //#endregion
   
   //#region PUTS
@@ -183,6 +190,19 @@ export class AuthService {
       catchError(this.handleError)
     ); 
   }
+
+  updatemural(id: Number, texto: String) {
+    return this.http.put(this.env.API_URL + 'auth/updatemural',
+    {id: id, texto: texto}
+    );
+  }
+  
+  deletemural(id: Number) {
+    return this.http.put(this.env.API_URL + 'auth/deletemural',
+    {id: id}
+    );
+  }
+
   //#endregion
 
   //#region GET
@@ -191,6 +211,7 @@ export class AuthService {
   {
     return this.http.get<any>(this.env.API_URL+'auth/reuniao');
   }
+
   logout() {
     const headers = new HttpHeaders({
       'Authorization': "Bearer "+this.global.access
@@ -221,6 +242,12 @@ export class AuthService {
 
   getUsers(id: Number){
     return this.http.post(this.env.API_URL + 'auth/getusers',
+    {id_user:id}
+    ); 
+  }
+
+  getNome(id: Number){
+    return this.http.post(this.env.API_URL + 'auth/getnome',
     {id_user:id}
     ); 
   }
@@ -260,6 +287,14 @@ export class AuthService {
   getAllLista(id:Number): Observable<any>
   {
     return this.http.post<any>( this.env.API_URL+'auth/getalllista',{id:id});
+  }
+
+  getPresente(){
+    return this.http.get<any>( this.env.API_URL+'auth/getpresente');
+  }
+
+  getAusente(){
+    return this.http.get<any>( this.env.API_URL+'auth/getausente');
   }
 
   getInfo(): Observable<any>

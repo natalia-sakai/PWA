@@ -23,8 +23,8 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  // declarations: [AdmininfoPage,EditinfoPage,CadastrainfoPage],
-  declarations: [AdmininfoPage],
+  declarations: [AdmininfoPage,EditinfoPage,CadastrainfoPage],
+  // declarations: [AdmininfoPage],
   entryComponents: [EditinfoPage,CadastrainfoPage]
 })
 export class AdmininfoPageModule {}

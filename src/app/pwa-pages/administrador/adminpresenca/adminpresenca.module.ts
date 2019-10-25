@@ -1,4 +1,4 @@
-import { EditpresencaPageModule } from './../../edit/editpresenca/editpresenca.module';
+
 import { EditpresencaPage } from './../../edit/editpresenca/editpresenca.page';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -23,7 +23,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [AdminpresencaPage],
+  declarations: [AdminpresencaPage, EditpresencaPage],
   entryComponents: [EditpresencaPage]
 })
 export class AdminpresencaPageModule {}

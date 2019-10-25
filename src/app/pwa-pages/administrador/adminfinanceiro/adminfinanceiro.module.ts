@@ -23,7 +23,7 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   //declarations: [AdminfinanceiroPage, CadastrafinanceiroPage],
-  declarations: [AdminfinanceiroPage],
+  declarations: [AdminfinanceiroPage, CadastrafinanceiroPage],
   entryComponents: [CadastrafinanceiroPage]
 })
 export class AdminfinanceiroPageModule {}

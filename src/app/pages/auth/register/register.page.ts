@@ -50,8 +50,6 @@ export class RegisterPage implements OnInit {
     this.auxtel=form.value.telefone.replace(/\D+/g, '');
     this.auxdata=form.value.data_nasc;
     this.daux = this.auxdata.split('T')[0];
-    console.log(this.daux);
-    console.log(this.auxtel);
 
     this.authService.getAvental().subscribe(data=>{
       for(let i=0; i<data.length; i++){

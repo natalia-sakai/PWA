@@ -10,119 +10,53 @@
 <ion-content>
   <ion-grid>
     <ion-row>
-      <ion-col size="4">
+      <ion-col>
+        <div class="menu">
+          <ion-button color="primary" fill="clear" [routerLink]="['/adminagape']">ÁGAPE</ion-button>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="menu">
+          <ion-button color="primary" fill="clear" [routerLink]="['/adminfinanceiro']">FINANCEIRO</ion-button>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="menu">
+          <ion-button color="primary" fill="clear" [routerLink]="['/admininfo']">INFORMATIVO</ion-button>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="menu">
+          <ion-button color="primary" fill="clear" [routerLink]="['/adminpresenca']">LISTA DE PRESENÇA</ion-button>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="menu">
+          <ion-button color="primary" fill="clear" [routerLink]="['/mural']">MURAL</ion-button>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="menu">
+          <ion-button color="primary" fill="clear" [routerLink]="['/adminordem']">ORDEM DO DIA</ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
         <div class="box">
           <h3>Reunião {{this.data}}</h3>
         </div>
       </ion-col>
-      <ion-col size="4">
+      <ion-col>
         <div class="box">
           <h3>Presentes: {{this.presente}}</h3>
         </div>
       </ion-col>
-      <ion-col size="4">
+      <ion-col>
         <div class="box">
           <h3>Ausentes: {{this.ausente}}</h3>
         </div>
       </ion-col>
     </ion-row>
-      <ion-row>
-        <ion-col size="12">
-          <div class="box">
-            <h1>LISTA DE PRESENÇA</h1>
-            <ion-list lines="none">
-              <ion-item *ngIf="this.confirm == false"> 
-                <ion-label text-center>Nenhum usuário confirmou presença ainda</ion-label>
-              </ion-item>
-              <ion-row *ngIf="this.confirm == true">
-                <ion-col size="5">
-                    <h2 text-center>Nome</h2>
-                  <ion-item-sliding *ngFor="let nomes of name">
-                    <ion-item>
-                        <ion-label text-center>{{nomes}}</ion-label>
-                    </ion-item>
-                  </ion-item-sliding>
-                </ion-col>
-                <ion-col size="4">
-                    <h2 text-center>Presença</h2>
-                  <ion-item-sliding *ngFor="let presencas of presenca">
-                    <ion-item>
-                        <ion-label text-center>{{presencas}}</ion-label>
-                    </ion-item>
-                  </ion-item-sliding>
-                </ion-col>
-                <ion-col size="3">
-                  <h2 text-center>Motivo</h2>
-                  <ion-item-sliding *ngFor="let motivos of motivo">
-                    <ion-item>
-                        <ion-label text-center>{{motivos}}</ion-label>
-                    </ion-item>
-                  </ion-item-sliding>
-                </ion-col>
-              </ion-row>
-            </ion-list>
-            <br>
-            <ion-buttons>
-              <ion-button color="primary" fill="clear" [routerLink]="['/adminpresenca']">VER MAIS</ion-button>
-            </ion-buttons>
-          </div>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <div class="box">
-            <h1>INFORMATIVOS</h1>
-            <ion-list lines="none">
-              <ion-item *ngFor="let inform of info">
-                <ion-label>{{inform}}</ion-label>
-              </ion-item>
-            </ion-list>
-            <ion-buttons>
-              <ion-button color="primary" fill="clear" [routerLink]="['/admininfo']">EDITAR</ion-button>
-              <ion-button color="primary" fill="clear" (click)="cadastrarinfo()">CADASTRAR</ion-button>
-            </ion-buttons>
-          </div>
-        </ion-col>
-        <ion-col>
-          <div class="box">
-            <h1>ORDENS</h1>
-            <ion-list lines="none">
-              <ion-item *ngFor="let ordens of ordem">
-                <ion-label>{{ordens}}</ion-label>
-              </ion-item>
-            </ion-list>
-            <ion-buttons>
-              <ion-button color="primary" fill="clear" [routerLink]="['/adminordem']">EDITAR</ion-button>
-              <ion-button color="primary" fill="clear" (click)="cadastrarordem()">CADASTRAR</ion-button>
-            </ion-buttons>
-          </div>
-        </ion-col>
-        <ion-col>
-          <div class="box">
-            <h1>ÁGAPE</h1>
-            <ion-list lines="none">
-                <ion-item *ngFor="let agapes of agape">
-                  <ion-label>{{agapes}}</ion-label>
-                </ion-item>
-              </ion-list>
-            <ion-buttons>
-              <ion-button color="primary" fill="clear" [routerLink]="['/adminagape']">EDITAR</ion-button>
-              <ion-button color="primary" fill="clear" (click)="cadastraragape()">CADASTRAR</ion-button>
-            </ion-buttons>
-          </div>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <div class="box">
-            <h1>LISTA</h1>
-          </div>
-        </ion-col>
-        <ion-col>
-          <div class="box">
-            <h1>LISTA</h1>
-          </div>
-        </ion-col>
-      </ion-row>
     </ion-grid>
 </ion-content>

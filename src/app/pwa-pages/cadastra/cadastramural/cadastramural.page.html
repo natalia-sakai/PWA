@@ -6,14 +6,12 @@
   <br>
   <ion-grid text-center >
     <div class="box">
-      <h2>Cadastrar Ágape</h2>
+      <br><br><br>
+      <h2>Cadastrar Mural</h2>
+      <br><br>
       <form #form="ngForm" (ngSubmit)="cadastrar(form)" method="POST">
         <ion-grid>
-          <ion-input ngModel placeholder="Ágape" name="agape" type="text" required="true"></ion-input>
-        </ion-grid>
-        <br>
-        <ion-grid>
-          <ion-datetime ngModel name="data" placeholder="Data do ágape" display-format="DD/MM/YYYY" required="true"></ion-datetime>
+          <ion-input ngModel placeholder="Digite algo" name="texto" type="text" required="true" ></ion-input>
         </ion-grid>
         <br>
         <ion-grid>

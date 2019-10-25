@@ -1,3 +1,7 @@
+import { AlertService } from 'src/app/services/alert.service';
+import { EditmuralPage } from './../../pwa-pages/edit/editmural/editmural.page';
+import { CadastramuralPage } from './../../pwa-pages/cadastra/cadastramural/cadastramural.page';
+import { ModalController } from '@ionic/angular';
 import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -9,14 +13,24 @@ import { Component, OnInit } from '@angular/core';
 export class MuralPage implements OnInit {
   public mural:any[]=[];
   public aux = " ";
-  constructor(public authService:AuthService) { }
+  public disabled1=true;
+  constructor(private authService:AuthService, private modalCtrl: ModalController,
+    private alertService: AlertService
+    ) { }
 
   ngOnInit() {
   }
   ionViewWillEnter(){
     this.showmural();
+    this.permissao();
   }
-
+  permissao(){
+    this.authService.user().subscribe(data=>{
+      if(data.cargo_id == 11 || data.cargo_id == 8 || data.cargo_id ==4){
+        this.disabled1 = false;
+      }
+    });
+  }
   async showmural(){
     this.authService.getMural().subscribe(
       data=>{
@@ -28,22 +42,35 @@ export class MuralPage implements OnInit {
             else
               this.mural[i].ativo = 0;
           });
-          this.authService.getUsers(data[i].id_users).subscribe(resul=>{
-             this.mural[i].nome = resul[0].first_name+this.aux+resul[0].last_name;
+          this.authService.getNome(data[i].id_users).subscribe(resul=>{
+             this.mural[i].nome = resul;
           });
         }
     });
   }
 
-  cadastrar(){
-
+  async cadastrar(){
+    const cadastrar = await this.modalCtrl.create({
+      component: CadastramuralPage
+    });
+    return await cadastrar.present();
   }
 
-  editar(form:any){
-
+  async editar(id:any){
+    const editar = await this.modalCtrl.create({
+      component: EditmuralPage,
+      componentProps:{
+        id: id,
+        other: {couldAlsoBeAnObject: true}
+      }
+    });
+    return await editar.present();
   }
 
-  delete(form:any){
-    
+  delete(id:any){
+    this.authService.deletemural(id).subscribe(data=>{
+      window.location.reload();
+      this.alertService.presentToast("Postagem excluída com sucesso!");
+    });
   }
 }

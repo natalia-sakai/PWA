@@ -25,12 +25,12 @@ export class EditinfoPage implements OnInit {
   }
 
   showinfo() {
-    this.inform = this.navParams.get('inform');
     this.authService.getInfo().subscribe(
       data=>{
         for(let i=0; i<data.length;i++)
         {
-          if(this.inform == data[i].ordem){
+          if(this.navParams.get('id') == data[i].id){
+            this.inform = data[i].info;
             this.nivel = data[i].nivel;
             switch (this.nivel)
             {
@@ -61,8 +61,7 @@ export class EditinfoPage implements OnInit {
     data=>{
       for(let i=0; i<data.length;i++)
       {
-        //informação tem que estar ativa
-        if(this.inform == data[i].info && data[i].ativo == 1)
+        if(this.navParams.get('id') == data[i].id)
         {
           this.authService.updateinfo(data[i].id, form.value.novo, 1, form.value.nivel).subscribe(
             data=>{

@@ -1,3 +1,5 @@
+import { CadastramuralPage } from './../../pwa-pages/cadastra/cadastramural/cadastramural.page';
+import { EditmuralPage } from './../../pwa-pages/edit/editmural/editmural.page';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -21,6 +23,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [MuralPage]
+  declarations: [MuralPage,EditmuralPage, CadastramuralPage],
+  entryComponents: [EditmuralPage, CadastramuralPage]
 })
 export class MuralPageModule {}

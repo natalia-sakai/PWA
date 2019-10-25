@@ -1,3 +1,4 @@
+import { AppRoutingPreloaderService } from './../../../route-to-preload';
 import { ActivatedRoute } from '@angular/router';
 import { EditordemPage } from './../../edit/editordem/editordem.page';
 import { CadastraordemPage } from '../../cadastra/cadastraordem/cadastraordem.page';
@@ -19,11 +20,17 @@ export class AdminordemPage implements OnInit {
     private alertCtrl:AlertController, 
     private navCtrl: NavController,
     private modalCtrl: ModalController,
-    private router:ActivatedRoute
+    private router:ActivatedRoute, 
+    private routingService: AppRoutingPreloaderService
     ) { }
 
   ngOnInit() {
     
+  }
+  async ionViewDidEnter() {
+    await this.routingService.preloadRoute('editordem');
+    await this.routingService.preloadRoute('cadastraordem');
+    await this.routingService.preloadRoute('hisordem');
   }
   ionViewWillEnter(){
     this.showordem();
@@ -42,7 +49,7 @@ export class AdminordemPage implements OnInit {
       data=>{
         for(let i=0; i<data.length;i++)
         {
-          this.ordem[i]=data[i].ordem;
+          this.ordem[i]=data[i];
         }
     },
     error=>{
@@ -57,28 +64,26 @@ export class AdminordemPage implements OnInit {
     return await cadastrar.present();
   }
 
-  async editar(ordens:any){
+  async editar(id:any){
     const editar = await this.modalCtrl.create({
       component: EditordemPage, 
       componentProps:{
-        ordem: ordens,
+        id: id,
         other: {couldAlsoBeAnObject: true}
       }
     });
     return await editar.present();
   }
 
-  async delete(ordem: any){
+  async delete(id: any){
     await this.authService.getOrdem().subscribe(
       data=>{
         for(let i=0; i<data.length;i++)
         {
-          //informação tem que estar ativa
-          if(ordem == data[i].ordem && data[i].ativo == 1)
+          if(id == data[i].id)
           {
-            console.log(data[i].id);
             //muda o ativo para zero
-            this.authService.updateordem(data[i].id, ordem, 0, data[i].nivel).subscribe(
+            this.authService.updateordem(data[i].id, data[i].ordem, 0, data[i].nivel).subscribe(
               data=>{
                 this.alertService.presentToast("Ordem excluido com sucesso!");
                 window.location.reload();

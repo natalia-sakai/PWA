@@ -1,3 +1,4 @@
+import { AccountPage } from './../account/account.page';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -21,7 +22,7 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  // declarations: [EditsenhaPage]
-  declarations: []
+  declarations: [EditsenhaPage]
+  // declarations: []
 })
 export class EditsenhaPageModule {}

@@ -12,6 +12,10 @@ const routes: Routes = [
   {
     path: '',
     component: AccountPage
+  },
+  {
+    path: 'editdados',
+    component: EditdadosPage
   }
 ];
 
@@ -23,6 +27,7 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [AccountPage, EditdadosPage, EditsenhaPage],
+  // declarations: [AccountPage],
   entryComponents: [EditdadosPage, EditsenhaPage]
 })
 export class AccountPageModule {}

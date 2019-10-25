@@ -8,15 +8,13 @@
       <div class="box">
         <h2>Editar Presença</h2>
         <form #form="ngForm" (ngSubmit)="editar(form)" method="POST">
-          <ion-grid text-center>
-            <ion-label>{{this.name}}</ion-label>
+          <ion-grid text-justify>
+            <ion-label>Nome: {{this.name}}</ion-label>
           </ion-grid>
-          <ion-grid>
+          <ion-grid text-justify>
+            <ion-label>Presença:</ion-label>
             <ion-list lines="none">
-              <ion-radio-group ngModel name="presenca">
-                <ion-list-header>
-                  <ion-label>Presença</ion-label>
-                </ion-list-header>
+              <ion-radio-group ngModel name="presenca">              
                 <ion-item>
                   <ion-label>Presente</ion-label>
                   <ion-radio value="1" slot="start" [checked]="checked1"></ion-radio>
@@ -28,11 +26,12 @@
               </ion-radio-group>
             </ion-list>
           </ion-grid>
-          <ion-grid>
+          <ion-grid text-justify>
+            <ion-label>Motivo:</ion-label>
             <ion-input type="text" required="true" name="motivo" [(ngModel)]="this.motivo"></ion-input>
           </ion-grid>
           <ion-grid>
-            <ion-button type="submit" round expand="block" color="danger">Editar</ion-button>
+            <ion-button type="submit" round expand="block" color="danger">Salvar</ion-button>
           </ion-grid>
         </form>
       </div>

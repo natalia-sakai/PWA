@@ -1,3 +1,4 @@
+import { AppRoutingPreloaderService } from './../../../route-to-preload';
 import { EditpresencaPage } from './../../edit/editpresenca/editpresenca.page';
 import { DatePipe } from '@angular/common';
 import { NavController, ModalController } from '@ionic/angular';
@@ -19,9 +20,13 @@ export class AdminpresencaPage implements OnInit {
   public aux = " ";
 
   constructor(private authService: AuthService, private modalCtrl: ModalController,
-    private navCtrl: NavController,private dataPipe: DatePipe) { }
+    private navCtrl: NavController,private dataPipe: DatePipe, private routingService: AppRoutingPreloaderService) { }
 
   ngOnInit() {
+  }
+  async ionViewDidEnter() {
+    await this.routingService.preloadRoute('editpresenca');
+    await this.routingService.preloadRoute('hispresenca');
   }
   ionViewWillEnter()
   {
@@ -61,8 +66,8 @@ export class AdminpresencaPage implements OnInit {
             else{
               this.lista[i].presenca = "Estará presente";
             }
-            this.authService.getUsers(data[i].id_user).subscribe(resul=>{
-              this.name[i] = resul[0].first_name+this.aux+resul[0].last_name;
+            this.authService.getNome(data[i].id_user).subscribe(resul=>{
+              this.name[i] = resul;
             });
           }
         }

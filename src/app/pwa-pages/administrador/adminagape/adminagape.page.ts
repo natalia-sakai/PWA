@@ -1,3 +1,4 @@
+import { AppRoutingPreloaderService } from './../../../route-to-preload';
 import { CadastraagapePage } from './../../cadastra/cadastraagape/cadastraagape.page';
 import { EditagapePage } from './../../edit/editagape/editagape.page';
 import { AlertController, NavController, ModalController } from '@ionic/angular';
@@ -16,9 +17,14 @@ export class AdminagapePage implements OnInit {
   constructor(private authService: AuthService,
     private alertService: AlertService, 
     private alertCtrl:AlertController, 
-    private navCtrl: NavController, private modalCtrl: ModalController) { }
+    private navCtrl: NavController, private modalCtrl: ModalController, private routingService: AppRoutingPreloaderService) { }
 
   ngOnInit() {
+  }
+  async ionViewDidEnter() {
+    await this.routingService.preloadRoute('editagape');
+    await this.routingService.preloadRoute('cadastraagape');
+    await this.routingService.preloadRoute('hisagape');
   }
   ionViewWillEnter(){
     this.showagape();
@@ -37,7 +43,7 @@ export class AdminagapePage implements OnInit {
       data=>{
         for(let i=0; i<data.length;i++)
         {
-          this.agape[i]=data[i].agape;
+          this.agape[i]=data[i];
         }
     },
     error=>{
@@ -52,27 +58,26 @@ export class AdminagapePage implements OnInit {
     return await cadastrar.present();
   }
 
-  async editar(inform:any){
+  async editar(id:any){
     const editar = await this.modalCtrl.create({
       component: EditagapePage, 
       componentProps:{
-        inform: inform,
+        id: id,
         other: {couldAlsoBeAnObject: true}
       }
     });
     return await editar.present();
   }
 
-  async delete(agape: any){
+  async delete(id: any){
     await this.authService.getAgape().subscribe(
       data=>{
         for(let i=0; i<data.length;i++)
         {
-          if(agape == data[i].agape)
+          if(id== data[i].id)
           {
-            console.log(data[i].data);
             //muda o ativo para zero
-            this.authService.updateagape(data[i].id, agape, 0, data[i].data).subscribe(
+            this.authService.updateagape(data[i].id, data[i].agape, 0, data[i].data).subscribe(
               data=>{
                 this.alertService.presentToast("Ordem excluido com sucesso!");
                 window.location.reload();

@@ -1,4 +1,3 @@
-import { EditpresencaPageModule } from './pwa-pages/edit/editpresenca/editpresenca.module';
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -15,13 +14,14 @@ import { environment } from '../environments/environment';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import {DatePipe} from '@angular/common';
-import { EditordemPageModule } from './pwa-pages/edit/editordem/editordem.module';
-import { EditinfoPageModule } from './pwa-pages/edit/editinfo/editinfo.module';
-
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [
+    AppComponent
+  ],
+  entryComponents: [
+
+  ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
@@ -31,8 +31,7 @@ import { EditinfoPageModule } from './pwa-pages/edit/editinfo/editinfo.module';
       name: 'new',
       driverOrder: ['localstorage', 'websql', 'sqlite' ]
     }),
-    HttpClientModule,
-    EditordemPageModule, EditinfoPageModule, EditpresencaPageModule
+    HttpClientModule
   ],
   providers: [
     StatusBar,
