@@ -1,42 +1,42 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button>
-        </ion-buttons>
-      <ion-title>Financeiro</ion-title>
-    </ion-toolbar>
-  </ion-header>
-    
-  <ion-content padding>
-        <ion-card>
-          <ion-card-header>
-            <ion-card-title>Situação</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-                <ion-list>
-              
-                </ion-list>
-          </ion-card-content>
-        </ion-card>
-        <ion-card>
-          <ion-card-header>
-            <ion-card-title>Mês atual</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-                <ion-list>
-              
-                </ion-list>
-          </ion-card-content>
-        </ion-card>
-        <ion-card>
-          <ion-card-header>
-            <ion-card-title>Histórico</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-                <ion-list>
-              
-                </ion-list>
-          </ion-card-content>
-        </ion-card>
-  </ion-content>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+    <ion-title>Financeiro</ion-title>
+  </ion-toolbar>
+</ion-header>
+  
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      <ion-buttons>
+        <ion-button color="primary" fill="clear" (click)="historico()">HISTÓRICO</ion-button>
+      </ion-buttons>
+    </ion-card-header>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title text-center>Situação atual</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list lines="none" >
+        <ion-item-sliding *ngFor="let finan of financeiro">
+          <ion-item>
+            <ion-label>Mês: {{finan.mes}}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>Pagamento: {{finan.data_pag}}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>Valor: {{finan.valor}}</ion-label>
+          </ion-item>
+          <ion-item>
+            <!-- espaco -->
+          </ion-item>
+        </ion-item-sliding>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
   

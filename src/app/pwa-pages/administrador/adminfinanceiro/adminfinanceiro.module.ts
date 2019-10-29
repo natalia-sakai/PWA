@@ -1,3 +1,4 @@
+import { CadastrafinanceiroPage } from './../../cadastra/cadastrafinanceiro/cadastrafinanceiro.page';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -21,6 +22,8 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [AdminfinanceiroPage]
+  //declarations: [AdminfinanceiroPage, CadastrafinanceiroPage],
+  declarations: [AdminfinanceiroPage, CadastrafinanceiroPage],
+  entryComponents: [CadastrafinanceiroPage]
 })
 export class AdminfinanceiroPageModule {}

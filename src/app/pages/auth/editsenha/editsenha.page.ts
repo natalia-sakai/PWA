@@ -13,18 +13,18 @@ export class EditsenhaPage implements OnInit {
 
   public id: any;
   public password: any;
-  constructor(private alertService: AlertService, private authService: AuthService, private navCtrl: NavController) { }
+  constructor(private alertService: AlertService, private authService: AuthService, private navCtrl: NavController, private modalCtrl: ModalController) { }
 
   ngOnInit() {
   }
 
-  dismiss() {
-    this.navCtrl.navigateRoot('/account');
+  dismiss(){
+    this.modalCtrl.dismiss();
   }
 
   editar(form: NgForm)
   {
-    this.authService.getId()
+    this.authService.user()
     .subscribe(
     data=>{ 
       this.id = data.id;

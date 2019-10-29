@@ -29,13 +29,14 @@ export class EditordemPage implements OnInit {
     this.showordem();
   }
   showordem() {
-    this.ordem = this.navParams.get('ordem');
+    
     this.authService.getOrdem().subscribe(
       data=>{
         for(let i=0; i<data.length;i++)
         {
-          if(this.ordem == data[i].ordem){
+          if(this.navParams.get('id') == data[i].id){
             this.nivel = data[i].nivel;
+            this.ordem = data[i].ordem;
             switch (this.nivel)
             {
               case 1: 
@@ -66,7 +67,7 @@ export class EditordemPage implements OnInit {
         for(let i=0; i<data.length;i++)
         {
           //informação tem que estar ativa
-          if(this.ordem == data[i].ordem && data[i].ativo == 1)
+          if(this.navParams.get('id') == data[i].id)
           {
             this.authService.updateordem(data[i].id, form.value.novo, 1, form.value.nivel).subscribe(
               data=>{
@@ -74,7 +75,7 @@ export class EditordemPage implements OnInit {
                 this.dismiss();
                 window.location.reload();
               }
-            )
+            );
           }
         }
     },

@@ -1,0 +1,20 @@
+<ion-content padding>
+    <ion-button fill='clear' (click)="dismiss()" style="color: white">
+      <ion-icon name="arrow-round-back" slot="start"></ion-icon>
+      Back
+    </ion-button>
+    <br>
+    <ion-grid text-center >
+      <div class="box">
+        <h2>Cadastrar Financeiro</h2>
+        <form #form="ngForm" (ngSubmit)="cadastrar(form)" method="POST">
+          <ion-grid>
+            <ion-input ngModel placeholder="00,00" name="valor" type="number" required="true"></ion-input>
+          </ion-grid>
+          <ion-grid>
+            <ion-button type="submit" round expand="block" color="danger">Cadastrar</ion-button>
+          </ion-grid>
+        </form>
+      </div>
+    </ion-grid>
+  </ion-content>

@@ -1,0 +1,25 @@
+<ion-content padding>
+  <ion-button fill='clear' (click)="dismiss()" style="color: white">
+    <ion-icon name="arrow-round-back" slot="start"></ion-icon>
+    Back
+  </ion-button>
+  <br>
+  <ion-grid text-center >
+    <div class="box">
+      <h2>Cadastrar Ágape</h2>
+      <form #form="ngForm" (ngSubmit)="cadastrar(form)" method="POST">
+        <ion-grid>
+          <ion-input ngModel placeholder="Ágape" name="agape" type="text" required="true"></ion-input>
+        </ion-grid>
+        <br>
+        <ion-grid>
+          <ion-datetime ngModel name="data" placeholder="Data do ágape" display-format="DD/MM/YYYY" required="true"></ion-datetime>
+        </ion-grid>
+        <br>
+        <ion-grid>
+          <ion-button type="submit" round expand="block" color="danger">Cadastrar</ion-button>
+        </ion-grid>
+      </form>
+    </div>
+  </ion-grid>
+</ion-content>

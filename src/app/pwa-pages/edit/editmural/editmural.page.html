@@ -1,0 +1,23 @@
+<ion-content padding>
+  <ion-button fill='clear' (click)="dismiss()" style="color: white">
+    <ion-icon name="arrow-round-back" slot="start"></ion-icon>
+    Back
+  </ion-button>
+  <br>
+  <ion-grid text-center >
+    <div class="box">
+      <br><br><br>
+      <h2>Editar Mural</h2>
+      <form #form="ngForm" (ngSubmit)="editar(form)" method="POST">
+        <br><br>
+        <ion-grid>
+          <ion-input placeholder="Digite algo" name="texto" type="text" required="true" [(ngModel)]="this.texto"></ion-input>
+        </ion-grid>
+        <br>
+        <ion-grid>
+          <ion-button type="submit" round expand="block" color="danger">Salvar</ion-button>
+        </ion-grid>
+      </form>
+    </div>
+  </ion-grid>
+</ion-content>

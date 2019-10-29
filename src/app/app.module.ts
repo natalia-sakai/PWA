@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy, RouterModule, Routes } from '@angular/router';
@@ -15,8 +16,12 @@ import { IonicStorageModule } from '@ionic/storage';
 import {DatePipe} from '@angular/common';
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [
+    AppComponent
+  ],
+  entryComponents: [
+
+  ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),

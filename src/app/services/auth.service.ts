@@ -96,7 +96,6 @@ export class AuthService {
       catchError(this.handleError)
     ); 
   }
-
   
   informativo(info:String, id_user:Number, nivel: Number){
     return this.http.post(this.env.API_URL + 'auth/informativo', {
@@ -133,6 +132,14 @@ export class AuthService {
     ); 
   }
 
+  mural(id_user: Number, text: String){
+    return this.http.post(this.env.API_URL + 'auth/mural',
+      {id_users: id_user, texto: text}
+    ).pipe(
+      retry(1),
+      catchError(this.handleError)
+    ); 
+  }
   //#endregion
   
   //#region PUTS
@@ -174,6 +181,28 @@ export class AuthService {
       catchError(this.handleError)
     ); 
   }
+
+  updatelista(id: Number, motivo: String, presenca:Number) {
+    return this.http.put(this.env.API_URL + 'auth/updatelista',
+    {id: id, motivo:motivo, presenca: presenca}
+    ).pipe(
+      retry(1),
+      catchError(this.handleError)
+    ); 
+  }
+
+  updatemural(id: Number, texto: String) {
+    return this.http.put(this.env.API_URL + 'auth/updatemural',
+    {id: id, texto: texto}
+    );
+  }
+  
+  deletemural(id: Number) {
+    return this.http.put(this.env.API_URL + 'auth/deletemural',
+    {id: id}
+    );
+  }
+
   //#endregion
 
   //#region GET
@@ -182,6 +211,7 @@ export class AuthService {
   {
     return this.http.get<any>(this.env.API_URL+'auth/reuniao');
   }
+
   logout() {
     const headers = new HttpHeaders({
       'Authorization': "Bearer "+this.global.access
@@ -216,15 +246,9 @@ export class AuthService {
     ); 
   }
 
-  getId(): Observable<any>
-  {
-    const headers = new HttpHeaders({
-      'Authorization': "Bearer "+this.global.access
-    });
-    return this.http.get<any>(this.env.API_URL + 'auth/user', { headers: headers })
-    .pipe(
-      retry(1),
-      catchError(this.handleError)
+  getNome(id: Number){
+    return this.http.post(this.env.API_URL + 'auth/getnome',
+    {id_user:id}
     ); 
   }
 
@@ -263,6 +287,14 @@ export class AuthService {
   getAllLista(id:Number): Observable<any>
   {
     return this.http.post<any>( this.env.API_URL+'auth/getalllista',{id:id});
+  }
+
+  getPresente(){
+    return this.http.get<any>( this.env.API_URL+'auth/getpresente');
+  }
+
+  getAusente(){
+    return this.http.get<any>( this.env.API_URL+'auth/getausente');
   }
 
   getInfo(): Observable<any>
@@ -329,6 +361,33 @@ export class AuthService {
 
   getAvental(){
     return this.http.get<any>( this.env.API_URL+'auth/getavental').pipe(
+      retry(1),
+      catchError(this.handleError)
+      );
+  }
+
+  getAllFinanceiro(id_user: Number): Observable<any>
+  {
+    return this.http.post<any>( this.env.API_URL+'auth/getallfinanceiro', 
+    {id_user: id_user})
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+      ); 
+  }
+
+  getFinanceiro(id_user: Number): Observable<any>
+  {
+    return this.http.post<any>( this.env.API_URL+'auth/getfinanceiro', 
+    {id_user: id_user})
+    .pipe(
+      retry(1),
+      catchError(this.handleError)
+      ); 
+  }
+
+  getMural(){
+    return this.http.get<any>( this.env.API_URL+'auth/getmural').pipe(
       retry(1),
       catchError(this.handleError)
       );

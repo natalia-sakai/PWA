@@ -1,3 +1,4 @@
+import { AccountPage } from './../account/account.page';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -22,5 +23,6 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [EditdadosPage]
+  // declarations: []
 })
 export class EditdadosPageModule {}

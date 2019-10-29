@@ -38,8 +38,8 @@ export class HislistaPage implements OnInit {
             else
               this.presenca[i]= "Presente";
             this.id_user[i] = data[i].id_user;
-            this.authService.getUsers(this.id_user[i]).subscribe(resul=>{
-              this.name[i] = resul[0].first_name+this.aux+resul[0].last_name;
+            this.authService.getNome(this.id_user[i]).subscribe(resul=>{
+              this.name[i] = resul;
             });
           }
           this.handlelista();

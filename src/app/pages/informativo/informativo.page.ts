@@ -13,6 +13,9 @@ export class InformativoPage implements OnInit {
   constructor(public authService: AuthService) { }
 
   ngOnInit() {
+    
+  }
+  ionViewWillEnter(){
     this.showinfo();
   }
   public info: any[] = [];

@@ -8,11 +8,15 @@
         <br>
         <form #form="ngForm" (ngSubmit)="login(form)" method="POST">
           <ion-grid>
-            <ion-input ngModel type="email" name="email" placeholder="E-mail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required="true"></ion-input>
+            <ion-input ngModel type="email" name="email" placeholder="E-mail" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required="true">
+                &nbsp;<ion-icon name="person" color="primary"></ion-icon>
+            </ion-input>
           </ion-grid>
           <br>
           <ion-grid> 
-            <ion-input ngModel type="password" name="password" placeholder="Password" pattern="[a-z0-9._%+-]{6,}$" required="true"></ion-input>
+            <ion-input ngModel type="password" name="password" placeholder="Password" pattern="[a-z0-9._%+-]{6,}$" required="true">
+                &nbsp;<ion-icon name="key" color="primary"></ion-icon>
+            </ion-input>
           </ion-grid>                
           <ion-grid text-right>
           <ion-button fill='clear' size='small'>Forgot Password?</ion-button>

@@ -24,6 +24,7 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [AdmininfoPage,EditinfoPage,CadastrainfoPage],
+  // declarations: [AdmininfoPage],
   entryComponents: [EditinfoPage,CadastrainfoPage]
 })
 export class AdmininfoPageModule {}

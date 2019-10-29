@@ -1,5 +1,7 @@
+import { AppRoutingPreloaderService } from './../../../route-to-preload';
+import { EditpresencaPage } from './../../edit/editpresenca/editpresenca.page';
 import { DatePipe } from '@angular/common';
-import { NavController } from '@ionic/angular';
+import { NavController, ModalController } from '@ionic/angular';
 import { AuthService } from '../../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -11,15 +13,20 @@ import { Component, OnInit } from '@angular/core';
 export class AdminpresencaPage implements OnInit {
   public data:any;
   public confirm:boolean;
-  public id_user:any[] = [];
+  public lista: any[] = [];
   public motivo: any[] = [];
   public name: any[]=[];
   public presenca: any[] = [];
   public aux = " ";
 
-  constructor(private authService: AuthService, private navCtrl: NavController,private dataPipe: DatePipe) { }
+  constructor(private authService: AuthService, private modalCtrl: ModalController,
+    private navCtrl: NavController,private dataPipe: DatePipe, private routingService: AppRoutingPreloaderService) { }
 
   ngOnInit() {
+  }
+  async ionViewDidEnter() {
+    await this.routingService.preloadRoute('editpresenca');
+    await this.routingService.preloadRoute('hispresenca');
   }
   ionViewWillEnter()
   {
@@ -51,17 +58,16 @@ export class AdminpresencaPage implements OnInit {
           this.confirm = true;
           for(let i=0; i<data.length;i++)
           {
-            this.motivo[i] = data[i].motivo;
+            this.lista[i]=data[i];
             if(data[i].presenca == 0)
             {
-              this.presenca[i] = "Não estará presente";
+              this.lista[i].presenca = "Não estará presente";
             }
             else{
-              this.presenca[i]= "Estará presente";
+              this.lista[i].presenca = "Estará presente";
             }
-            this.id_user[i] = data[i].id_user;
-            this.authService.getUsers(this.id_user[i]).subscribe(resul=>{
-              this.name[i] = resul[0].first_name+this.aux+resul[0].last_name;
+            this.authService.getNome(data[i].id_user).subscribe(resul=>{
+              this.name[i] = resul;
             });
           }
         }
@@ -74,5 +80,16 @@ export class AdminpresencaPage implements OnInit {
   historico()
   {
     this.navCtrl.navigateForward('/hispresenca');
+  }
+
+  async editar(id:any){
+      const editar = await this.modalCtrl.create({
+      component: EditpresencaPage,
+      componentProps:{
+        id: id,
+        other: {couldAlsoBeAnObject: true}
+      }
+    });
+    return await editar.present();
   }
 }

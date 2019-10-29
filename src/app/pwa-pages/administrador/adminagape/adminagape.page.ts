@@ -1,4 +1,7 @@
-import { AlertController, NavController } from '@ionic/angular';
+import { AppRoutingPreloaderService } from './../../../route-to-preload';
+import { CadastraagapePage } from './../../cadastra/cadastraagape/cadastraagape.page';
+import { EditagapePage } from './../../edit/editagape/editagape.page';
+import { AlertController, NavController, ModalController } from '@ionic/angular';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit } from '@angular/core';
@@ -10,24 +13,37 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminagapePage implements OnInit {
   public agape: any[]=[];
+  public disabled1=true;
   constructor(private authService: AuthService,
     private alertService: AlertService, 
     private alertCtrl:AlertController, 
-    private navCtrl: NavController) { }
+    private navCtrl: NavController, private modalCtrl: ModalController, private routingService: AppRoutingPreloaderService) { }
 
   ngOnInit() {
   }
+  async ionViewDidEnter() {
+    await this.routingService.preloadRoute('editagape');
+    await this.routingService.preloadRoute('cadastraagape');
+    await this.routingService.preloadRoute('hisagape');
+  }
   ionViewWillEnter(){
     this.showagape();
+    this.permissao();
   }
-  
+  permissao(){
+    this.authService.user().subscribe(data=>{
+      if(data.cargo_id == 11 || data.cargo_id == 8 || data.cargo_id ==4){
+        this.disabled1 = false;
+      }
+    });
+  }
   async showagape()
   {
     await this.authService.getAgape().subscribe(
       data=>{
         for(let i=0; i<data.length;i++)
         {
-          this.agape[i]=data[i].agape;
+          this.agape[i]=data[i];
         }
     },
     error=>{
@@ -35,119 +51,33 @@ export class AdminagapePage implements OnInit {
     });
   }
 
-  async openActions(agape:any){
-    let alertTeste = await this.alertCtrl.create({
-      header: 'Edite o ágape',
-      inputs: [
-        {
-          name: 'agape',
-          type: 'text',
-          placeholder: 'agape'
-        },
-        {
-          name: 'data',
-          type: 'date'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancelar',
-          //role cancel deixa ele como segunda opcao
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: ()=>{
-          
-          }
-        },
-        {
-          text: 'Salvar',
-          handler: (form)=> {
-            this.edit(form.agape, agape, form.data);
-          }
-        }
-      ]
+  async cadastrar(){
+    const cadastrar = await this.modalCtrl.create({
+      component: CadastraagapePage
     });
-    await alertTeste.present();
+    return await cadastrar.present();
   }
 
-  async edit(novo:any, antigo:any, date:any){
-    await this.authService.getAgape().subscribe(
-    data=>{
-      for(let i=0; i<data.length;i++)
-      {
-        if(antigo == data[i].agape && data[i].ativo == 1)
-        {
-          this.authService.updateagape(data[i].id, novo, 1, date).subscribe(
-            data=>{
-              this.alertService.presentToast("Ágape editado com sucesso!");
-              window.location.reload();
-            }
-          )
-        }
+  async editar(id:any){
+    const editar = await this.modalCtrl.create({
+      component: EditagapePage, 
+      componentProps:{
+        id: id,
+        other: {couldAlsoBeAnObject: true}
       }
-  },
-  error=>{
-    console.log(error);
-  });
-  }
-
-  async cadastrar()
-  {
-    let alertTeste = await this.alertCtrl.create({
-      header: 'Cadastre um ágape',
-      inputs: [
-        {
-          name: 'agape',
-          type: 'text',
-          placeholder: 'agape'
-        },
-        {
-          name: 'data',
-          type: 'date'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancelar',
-          //role cancel deixa ele como segunda opcao
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: ()=>{
-          
-          }
-        },
-        {
-          text: 'Salvar',
-          handler: (form)=> {
-            this.add(form.agape, form.data);
-          }
-        }
-      ]
     });
-    await alertTeste.present();
+    return await editar.present();
   }
 
-  async add(agape:any, date:any){
-    this.authService.getId().subscribe(data=>{
-      this.authService.agape(agape,data.id,date).subscribe(
-        data=> {
-          this.alertService.presentToast("Ágape criada com sucesso!");
-          window.location.reload();
-        }
-      )
-    })
-  }
-
-  async delete(agape: any){
+  async delete(id: any){
     await this.authService.getAgape().subscribe(
       data=>{
         for(let i=0; i<data.length;i++)
         {
-          if(agape == data[i].agape)
+          if(id== data[i].id)
           {
-            console.log(data[i].data);
             //muda o ativo para zero
-            this.authService.updateagape(data[i].id, agape, 0, data[i].data).subscribe(
+            this.authService.updateagape(data[i].id, data[i].agape, 0, data[i].data).subscribe(
               data=>{
                 this.alertService.presentToast("Ordem excluido com sucesso!");
                 window.location.reload();

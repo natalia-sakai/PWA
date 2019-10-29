@@ -1,0 +1,32 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+      <ion-title>Histórico</ion-title>
+    </ion-toolbar>
+  </ion-header>
+    
+  <ion-content padding>
+    <ion-card>
+      <ion-card-content>
+        <ion-list lines="none" >
+          <ion-item-sliding *ngFor="let finan of financeiro">
+            <ion-item>
+              <ion-label>Mês: {{finan.mes}}</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>Data do pagamento: {{finan.data_pag}}</ion-label>
+            </ion-item>
+            <ion-item>
+              <ion-label>Valor: {{finan.valor}}</ion-label>
+            </ion-item>
+            <ion-item>
+              <!-- espaco -->
+            </ion-item>
+          </ion-item-sliding>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+  </ion-content>
+    

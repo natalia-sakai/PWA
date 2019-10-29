@@ -1,0 +1,23 @@
+<ion-content padding>
+  <ion-button fill='clear' (click)="dismiss()" style="color: white">
+    <ion-icon name="arrow-round-back" slot="start"></ion-icon>
+    Back
+  </ion-button>
+  <br>
+  <ion-grid text-center >
+    <div class="box">
+      <br><br><br>
+      <h2>Cadastrar Mural</h2>
+      <br><br>
+      <form #form="ngForm" (ngSubmit)="cadastrar(form)" method="POST">
+        <ion-grid>
+          <ion-input ngModel placeholder="Digite algo" name="texto" type="text" required="true" ></ion-input>
+        </ion-grid>
+        <br>
+        <ion-grid>
+          <ion-button type="submit" round expand="block" color="danger">Cadastrar</ion-button>
+        </ion-grid>
+      </form>
+    </div>
+  </ion-grid>
+</ion-content>

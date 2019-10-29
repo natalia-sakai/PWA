@@ -1,0 +1,25 @@
+<ion-content padding>
+  <ion-button fill='clear' (click)="dismiss()" style="color: white">
+    <ion-icon name="arrow-round-back" slot="start"></ion-icon>
+    Back
+  </ion-button>
+  <br>
+  <ion-grid text-center >
+    <div class="box">
+      <h2>Editar Ágape</h2>
+      <form #form="ngForm" (ngSubmit)="editar(form)" method="POST">
+        <ion-grid>
+          <ion-input placeholder="Ágape" name="agape" type="text" required="true" [(ngModel)]="this.agape"></ion-input>
+        </ion-grid>
+        <br>
+        <ion-grid>
+          <ion-datetime name="data" placeholder="Data do ágape" display-format="DD/MM/YYYY" required="true" [(ngModel)]="this.data"></ion-datetime>
+        </ion-grid>
+        <br>
+        <ion-grid>
+          <ion-button type="submit" round expand="block" color="danger">Salvar</ion-button>
+        </ion-grid>
+      </form>
+    </div>
+  </ion-grid>
+</ion-content>

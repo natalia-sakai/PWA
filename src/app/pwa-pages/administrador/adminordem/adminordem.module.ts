@@ -24,6 +24,7 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [AdminordemPage, CadastraordemPage, EditordemPage],
+  // declarations: [AdminordemPage],
   entryComponents: [CadastraordemPage,EditordemPage]
 })
 export class AdminordemPageModule {}

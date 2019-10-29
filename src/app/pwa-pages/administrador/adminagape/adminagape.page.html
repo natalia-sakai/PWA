@@ -11,7 +11,7 @@
       <ion-card>
         <ion-card-header>
           <ion-buttons>
-            <ion-button color="primary" fill="clear" (click)="cadastrar()">CADASTRAR</ion-button>
+            <ion-button color="primary" fill="clear" [disabled]="disabled1" (click)="cadastrar()">CADASTRAR</ion-button>
             <ion-button color="primary" fill="clear" (click)="historico()">HISTÓRICO</ion-button>
           </ion-buttons>
         </ion-card-header>
@@ -29,7 +29,7 @@
                   <ion-col size="8">
                     <ion-item-sliding *ngFor="let agapes of agape">
                       <ion-item>
-                        <ion-label>{{agapes}}</ion-label>
+                        <ion-label>{{agapes.agape}}</ion-label>
                       </ion-item>
                     </ion-item-sliding>
                   </ion-col>
@@ -37,8 +37,8 @@
                     <ion-item-sliding *ngFor="let agapes of agape">
                       <ion-item>
                         <ion-buttons slot="end">
-                          <ion-button fill="clear" (click)="delete(agapes)" color="danger">EXCLUIR</ion-button>
-                          <ion-button color="primary" fill="clear" (click)="openActions(agapes)">EDITAR</ion-button>
+                          <ion-button fill="clear" (click)="delete(agapes.id)" color="danger"><ion-icon name="trash"></ion-icon></ion-button>
+                          <ion-button color="primary" fill="clear" (click)="editar(agapes.id)"><ion-icon name="create"></ion-icon></ion-button>
                         </ion-buttons>
                       </ion-item>
                     </ion-item-sliding>
